@@ -1,0 +1,274 @@
+{% extends 'shopp/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+<title>{{ product.name }}</title>
+{% endblock %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="canonical" href=""/>
+<link rel="stylesheet" href="https://web.nvnstatic.net/css/fancybox-4.0.31/fancybox_4.0.31.css?v=2" type="text/css">
+<script type="text/javascript">
+    var csrftoken = "{{ csrf_token }}";
+    var addToCartUrl = "{% url 'add_to_cart' %}";
+    var checkoutUrl = "{% url 'checkout' %}";
+</script>
+
+<script defer type="text/javascript"
+        src="https://web.nvnstatic.net/js/jquery/fancybox-4.0.31/fancybox_4.0.31.js?v=2"></script>
+<script defer type="text/javascript" src="{% static 'js/pview.js' %}"></script>
+<!--<style>-->
+<!--    .add-to-cart-btn {-->
+<!--        background-color: red;-->
+<!--        color: white;-->
+<!--        border: none;-->
+<!--        padding: 10px 50px; /* Adjust the padding to make the button wider */-->
+<!--        cursor: pointer;-->
+<!--        min-width: 400px; /* Set a minimum width for the button */-->
+<!--        text-align: center; /* Ensure the text is centered */-->
+<!--    }-->
+
+<!--    .add-to-cart-btn:hover {-->
+<!--        background-color: darkred;-->
+<!--    }-->
+
+<!--</style>-->
+<div class="container-pre product-page">
+    <!-- <div class="bread-product">
+         <ul class="nav&#x20;justify-content-center&#x20;justify-content-lg-start">
+             <li>
+                 <a href="&#x2F;">Trang chủ</a>
+             </li>
+             <li>
+                 <a class="571353" href="&#x2F;quan-ao-pc571353.html">Quần áo</a>
+             </li>
+         </ul>
+     </div>-->
+    <div class="row detail-product">
+
+        <div class="col-lg-6 detail-product__left position-relative">
+            <div class="detail-product_big-Slide">
+                <div class="">
+                    {% for image in product.images.all %}
+                    <div class="">
+                        <a href="{{ image.image.url }}"
+                           data-fancybox="gallery"
+                           class="d-block position-relative" data-pos="1">
+                            <img alt="{{ product.name }}" width="100%"
+                                 src="{{ image.image.url }}"/>
+                            <button class="openZoom position-absolute p-0 rounded-circle text-center">
+                                <i class="fas fa-expand-alt"></i>
+                            </button>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="detail-product_small-Slide">
+                {% for image in product.images.all %}
+                <div class="item-thumb">
+                    <a href="javascript:" class="d-block position-relative">
+                        <img class="position-absolute"
+                             src="{{ image.image.url }}"
+                             alt="{{ product.name }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-6 detail-product__right">
+            <div class="right-content">
+
+                <div class="product-infomation">
+                    <h1 class="font-weight-bold">{{ product.name }}</h1>
+                    <div class="price-box" bis_skin_checked="1">
+                        {% if product.sale_price %}
+                        <del class="mr-2 price-old"><span class="number">{{ product.price|intcomma  }}</span><span
+                                class="curent">₫</span>
+                        </del>
+                        <p class="pro-price font-weight-bold d-inline-block mb-0 price-sale"><span class="number">{{ product.sale_price|intcomma  }}</span><span
+                                class="curent">₫</span></p>
+                        {% else %}
+                        <p class="pro-price font-weight-bold d-inline-block mb-0 "><span
+                                class="number">{{ product.price|intcomma  }}</span><span class="curent">₫</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="product-selection mb-4">
+                    <div class="size req" column="i2">
+                        <label class="m-0 font-weight-bold">Size</label>
+                        <div class="list-size d-flex flex-wrap align-items-center">
+                            {% for size in sizes %}
+                            <a rel="nofollow" value="{{size.value}}" href="javascript:void(0)"
+                               class="text-center d-inline-block ">{{size.value}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedSize" name="selectedSize" value="">
+                <input type="hidden" id="productId" name="productId" value="{{product.id}}">
+                <!--<div class="status-product py-3">
+                    <span class="font-weight-bold">Còn hàng</span>
+                </div>-->
+                <div class="d-flex align-items-center py-2 mb-3 group-buy">
+                    <div class="product-quantity d-flex">
+                        <span class="number-minus text-center font-weight-bold d-flex align-items-center">-</span>
+                        <input type="number" id="quantity" class="text-center float-left border-right-0 border-left-0"
+                               name="quantity" value="1" min="1" max="5000"/>
+                        <span class="number-plus text-center font-weight-bold d-flex align-items-center text">+</span>
+                    </div>
+                    <div class="purchase-product">
+                        <button class="add-to-cart btn-outline btn-buyNow unsel addnow btn font-weight-bold text-uppercase"
+                                    selId="{{product.id}}"
+                                    psid="{{product.id}}" title="Vui lòng chọn màu sắc hoặc kích cỡ!" ck="0">
+                                Thêm vào giỏ hàng
+                            </button>
+                        <button class="quick-to-cart btn-outline btn-buyNow unsel addnow btn font-weight-bold text-uppercase"
+                                    selId="{{product.id}}"
+                                    psid="{{product.id}}" title="Vui lòng chọn màu sắc hoặc kích cỡ!" ck="0">
+                                Mua ngay
+                            </button>
+                    </div>
+                </div>
+                <div class="noteStatus">
+                    <a href="javascript:" class="btn d-block rounded font-weight-bold" data-toggle="modal"
+                       data-target="#modalSub">Liên hệ chúng tôi</a></div>
+                <div class="product_meta">
+                    <p class="m-0">Mã sản phẩm : <span class="pro-code">{{product.id}}</span></p>
+                    <p class="m-0"></span></p>
+                </div>
+
+
+                <div class="share-group d-flex align-items-center">
+                    <a target="_blank" href="//www.facebook.com"
+                       class="share-face d-inline-block rounded-circle text-center">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+<!--                    <a target="_blank" href="//twitter.com/share?url=http://example.com"-->
+<!--                       class="share-twitter d-inline-block rounded-circle text-center">-->
+<!--                        <i class="fab fa-twitter"></i>-->
+<!--                    </a>-->
+                    <a target="_blank"
+                       href="mailto:enteryour@addresshere.com?subject={{ product.name }}&body=Check%20this%20out:%20http://example.com"
+                       class="share-mail d-inline-block rounded-circle text-center">
+                        <i class="far fa-envelope"></i>
+                    </a>
+                    <a target="_blank"
+                       href="//pinterest.com/pin/create/button/?url=http://example.com&media=https://example.com/image.png&description={{ product.name }}"
+                       class="share-pinter d-inline-block rounded-circle text-center">
+                        <i class="fab fa-pinterest"></i>
+                    </a>
+                    <a target="_blank"
+                       href="//www.linkedin.com/shareArticle?mini=true&url=http://example.com&title={{ product.name }}"
+                       class="share-linked d-inline-block rounded-circle text-center">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="product-tabs">
+        <div class="tab-item ">
+            <a href="javascript:" class="d-flex align-items-center open-tabs">
+                <i class="far fa-chevron-down d-inline-block text-center"></i>
+                <span class="d-inline-block">Thông tin bổ sung</span>
+            </a>
+            <div class="content-tab">
+                <p>Hàng chính hãng 100%</p>
+
+                <p>Đổi trả hàng trong vòng 1 tuần</p></div>
+        </div>
+    </div>
+    <div class="product-related">
+        <h2 class="font-weight-bold title text-uppercase">Sản phẩm tương tự</h2>
+        <div class="content">
+            {% for related_product in related_products %}
+            <div class="product-item product-item-owl  position-relative" data-id="{{related_product.id}}"
+                 data-img="{{related_product.images.first.image.url}}">
+                <div class="product-item__image position-relative">
+                    <a href="{% url 'product_detail' related_product.slug %}"
+                       class="d-block image-ab position-absolute">
+                        <img class="lazyload productHover productHover37960158" data-sizes="auto"
+                             src="https://web.nvnstatic.net/img/lazyLoading.gif?v=3"
+                             data-src="{{related_product.images.first.image.url}}"
+                             alt="{{ related_product.name }}">
+                    </a>
+                </div>
+                <div class="product-item__infor text-center">
+                    <span class="d-block text-uppercase product-item_cate mt-2">Quần áo</span>
+                    <a href="{% url 'product_detail' related_product.slug %}"
+                       class="d-inline-block product-item__name tp_product_name">
+                        {{ related_product.name }} </a>
+                    <p class="m-0">
+                        <span class="d-inline-block price font-weight-bold tp_product_detail_price">{%if related_product.sale_price %} {{ related_product.sale_price|intcomma  }} {% else %} {{ related_product.price|intcomma  }} {% endif %} ₫</span>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+
+<div class="group-buy__fixed position-fixed d-flex justify-content-center align-items-center">
+    <div class="product d-flex align-items-center">
+        <img src="{{ product.images.first.image.url }}"
+             alt="{{ product.name }}">
+        <p class="mb-0 font-weight-bold d-none d-sm-block">{{ product.name }}</p>
+    </div>
+    <div class="product-quantity d-flex">
+        <span class="number-minus text-center font-weight-bold d-flex align-items-center">-</span>
+        <input type="number" id="quantity-fixed" class="text-center float-left border-right-0 border-left-0 "
+               name="quantity" value="1" min="1" max="5000"/>
+        <span class="number-plus text-center font-weight-bold d-flex align-items-center text">+</span>
+    </div>
+    <div class="purchase-product">
+        <button class="quick-to-cart btn-outline btn-buyNow unsel addnow btn font-weight-bold text-uppercase"
+                selId="{{product.id}}"
+                psid="{{product.id}}" title="Vui lòng chọn màu sắc hoặc kích cỡ!" ck="0">
+            Mua ngay
+        </button>
+        <button class="add-to-cart btn-outline btn-buyNow unsel addnow btn font-weight-bold text-uppercase"
+                selId="{{product.id}}"
+                title="Vui lòng chọn màu sắc hoặc kích cỡ!" ck="0">
+            Thêm vào giỏ hàng
+        </button>
+
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sizeLinks = document.querySelectorAll(".list-size a");
+        const selectedSizeInput = document.getElementById("selectedSize");
+        let selectedSizeValue = "";
+
+        sizeLinks.forEach(link => {
+            link.addEventListener("click", function() {
+                // Remove 'selected' class from all size links
+                sizeLinks.forEach(l => l.classList.remove("selected"));
+
+                // Add 'selected' class to the clicked link
+                this.classList.add("selected");
+
+                // Update the selected size value
+                selectedSizeValue = this.getAttribute("value");
+
+                // Update the hidden input field
+                selectedSizeInput.value = selectedSizeValue;
+
+                console.log("Selected size value: " + selectedSizeValue); // For debugging purposes
+            });
+        });
+    });
+
+$(document).ready(function() {
+
+    });
+</script>
+{% endblock %}

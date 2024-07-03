@@ -1,0 +1,52 @@
+{% extends 'shopp/base.html' %}
+{% load humanize %}
+{% block title %}
+<title>SHOP {{ category.name }}</title>
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .category-name {
+        margin-top: 40px;
+        margin-bottom: 60px;
+    }
+
+</style>
+<div class="col-lg-12">
+    <h2 class="text-center category-name ">SALES</h2>
+    <div class="row product-list">
+        {% for product in products %}
+        <div class="product-item position-relative col-6 col-sm-3 text-center" data-id="{{ product.id }}">
+            <div class="product-item__image position-relative">
+                <a href="{% url 'product_detail' product.slug %}" class="d-block image-ab position-absolute">
+                    <img class="productHover" alt="{{ product.name }}" src="{{ product.images.first.image.url }}">
+                </a>
+            </div>
+            <div class="product-item__infor text-center">
+                <a href="{% url 'product_detail' product.slug %}"
+                   class="d-inline-block product-item__name tp_product_name">
+                    {{ product.name }}
+                </a>
+                <p class="m-0">
+                    {% if product.sale_price %}
+                    <span class="d-inline-block price font-weight-bold tp_product_detail_price">
+                                        {{ product.sale_price|intcomma  }} ₫
+                                    </span>
+
+                    <span class="d-inline-block oldPrice">{{ product.price|intcomma  }} ₫</span>
+                    {% else %}
+                    <span class="d-inline-block price font-weight-bold tp_product_detail_price">
+                                        {{ product.price|intcomma  }} ₫
+                                    </span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

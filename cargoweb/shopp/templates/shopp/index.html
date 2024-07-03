@@ -1,0 +1,114 @@
+{% extends 'shopp/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+<title>Cargoshop</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="banner-main col-pre">
+    <div class="banner-main__content">
+        <div class="item">
+            <a href="javascript:void(0);" class="d-block">
+                <img src="{% static 'images/banner.png' %}" alt="2">
+            </a>
+        </div>
+        .
+    </div>
+</div>
+
+<div class="title-home__news">
+    <h2 class="text-center position-relative m-0">
+        <span class="d-inline-block text-uppercase font-weight-bold position-relative"></span>
+    </h2>
+</div>
+<div class="row bannerNews-home">
+    <div class="col-3">
+        <div class="bannerNews-home__mid-content position-relative">
+            <a href="/category/jeans" class="d-block position-absolute">
+                <img src="{% static 'images/shop_jean.jpg' %}"
+                     alt="SHOP JEANS">
+            </a>
+            <a href="/category/jeans"
+               class="text-center bannerNews-home__mid-name d-block position-absolute text-uppercase font-weight-bold d-inline-block">
+                SHOP JEANS </a>
+        </div>
+    </div>
+    <div class="col-6 bannerNews-home__mid">
+        <div class="bannerNews-home__mid-content position-relative">
+            <a href="/category/kaki" class="d-block position-absolute">
+                <img src="{% static 'images/shop_kaki.jpg' %}"
+                     alt="SHOP KAKI">
+            </a>
+            <a href="/category/kaki"
+               class="text-center bannerNews-home__mid-name d-block position-absolute text-uppercase font-weight-bold d-inline-block">
+                SHOP KAKI </a>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="bannerNews-home__mid-content position-relative">
+            <a href="/" class="d-block position-absolute">
+                <img src="https://pos.nvncdn.com/eb9ddb-116318/bn/20220324_VBDHBJlITvvfnLSDA82zbAfd.png"
+                     alt="Super Sale">
+            </a>
+            <a href="/accessories-pc570536.html"
+               class="text-center bannerNews-home__mid-name d-block position-absolute text-uppercase font-weight-bold d-inline-block">
+                Sale </a>
+        </div>
+    </div>
+</div>
+
+{% for category in categories %}
+<div class="title-home">
+    <h2 class="text-center position-relative m-0">
+            <span class="d-inline-block text-uppercase font-weight-bold position-relative">
+                {{ category.name }}
+            </span>
+    </h2>
+</div>
+<div class="row-pre new-product">
+    {% for product in category.products.all %}
+    <div class="col-6 col-sm-3 col-lg-3 product-item" data-id="{{ product.id }}"
+         data-img="{{ product.images.first.image.url }}">
+        <div class="product-item__image position-relative">
+            <a href="{% url 'product_detail' product.slug %}" class="d-block image-ab position-absolute">
+                <img class="lazyload productHover productHover{{ product.id }}" data-sizes="auto"
+                     src="https://web.nvnstatic.net/img/lazyLoading.gif?v=3"
+                     data-src="{{ product.images.first.image.url }}"
+
+                     data-hover-src="{{ product.images.second.image.url }}"
+
+                     alt="{{ product.name }}">
+            </a>
+        </div>
+        <div class="product-item__infor text-center">
+            <span class="d-block text-uppercase product-item_cate mt-2">{{ product.category.name }}</span>
+            <a href="{% url 'product_detail' product.slug %}" class="d-inline-block product-item__name tp_product_name">
+                {{ product.name }}
+            </a>
+            <p class="m-0">
+                {% if product.sale_price %}
+                <span class="d-inline-block price font-weight-bold tp_product_detail_price">
+                                        {{ product.sale_price|intcomma  }} ₫
+                                    </span>
+
+                <span class="d-inline-block oldPrice " >{{ product.price|intcomma  }} ₫</span>
+                {% else %}
+                <span class="d-inline-block price font-weight-bold tp_product_detail_price">
+                                        {{ product.price|intcomma  }} ₫
+                                    </span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+<div class="text-center pt-4">
+    <a href="{% url 'product_list_by_category' category.slug %}" class="d-inline-block font-weight-bold see-more">
+        Xem tất cả <i class="fal fa-angle-right"></i>
+    </a>
+</div>
+{% endfor %}
+{% endblock %}

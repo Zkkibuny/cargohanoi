@@ -1,0 +1,148 @@
+{% extends 'shopp/base.html' %}
+{% load humanize %}
+{% block title %}
+<title>Giỏ hàng </title>
+{% endblock %}
+
+{% block content %}
+<script defer type="text/javascript" src="https://web.nvnstatic.net/tp/T0239/js/cart.js?v=2"></script>
+<link rel="stylesheet" href="https://web.nvnstatic.net/tp/T0239/css/cart.css?v=2" type="text/css">
+<link rel="canonical" href="/cart"/>
+
+<div id="cart">
+    <!--   --->
+    <div class="container-pre">
+        <div class="row">
+            <div id="layout-page" class="col-12 py-4">
+                <div class="main-title mt-2 mb-5">
+                    <h1 class="text-center">Giỏ hàng</h1>
+                </div>
+                <div id="cartformpage" class="pb30">
+                    <table class="cart cart-hidden">
+                        <thead>
+                        <tr>
+                            <th class="image">Hình ảnh</th>
+                            <th class="item">Tên sản phẩm</th>
+                            <th class="qty">Số lượng</th>
+                            <th class="price">Giá tiền</th>
+                            <th class="remove">Xoá</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for item in cart %}
+                        <tr class="item">
+                            <td class="image">
+                                <div class="product_image">
+                                    <a href="/product/{{ item.slug }}">
+                                        <img class="lazyload" data-sizes="auto"
+                                             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                             data-src="{{ item.image_url }}"
+                                             alt="{{ item.name }}"/>
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="item">
+                                <a href="/product/{{ item.slug }}"/>
+                                <strong>{{ item.name }} - {{ item.size }}</strong>
+                                </a>
+                            </td>
+                            <td class="qty">
+                                <input type="number" data-product-id="{{ item.product_id }}" data-size="{{ item.size }}" cart_key="{{ item.cart_key }}"
+                                       value="{{ item.quantity }}" min="0" max="5000" class="item-quantity"
+                                       onchange="updateCartItem(this)"/>
+                            </td>
+                            <td class="price">{{ item.price|intcomma }} ₫</td>
+
+                            <td class="remove">
+                                <a href="javascript:" rel="nofollow" class="cart remove_cart"
+                                   data-id="{{item.cart_key }}"  onclick="removeCartItem(this)" ></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                    <!-- cart mobile -->
+                    <!--                        <div class="cart-item cart-visible clearfix">-->
+
+                    {% for item in cart %}
+                    <div class="cart-item cart-visible d-flex d-sm-none">
+                        <div class="product_image">
+                            <a href="/product/{{ item.slug }}">
+                                <img class="lazyload" data-sizes="auto"
+                                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                     data-src="{{ item.image_url }}" alt="{{ item.name }}"/>
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <div class="title">
+                                <a href="/product/{{ item.slug }}">{{ item.name }} - {{ item.size }}</a>
+                            </div>
+                            <div class="price-text">
+                                <span class="price">{{ item.price|intcomma }} ₫</span>
+                            </div>
+                            <div class="remove-xs">
+                                <a data-id="37960159" class="cart remove_cart">Xóa</a>
+                            </div>
+                        </div>
+                        <div class="qty qty-mobile d-inline-flex justify-content-end product-quantity m-0">
+                            <span class="number-minus text-center font-weight-bold d-flex align-items-center">-</span>
+                            <input type="number" size="4" min="1" max="5000" value="{{ item.quantity }}"
+                                   data-id="37960159"
+                                   class="tc item-quantity qty p-input quantity-number line-item-qty product_37960159">
+                            <span class="number-plus text-center font-weight-bold d-flex align-items-center text">+</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="box-totalMoney text-center text-sm-right my-4">
+                        <span>Tổng tiền : </span>
+                        <span class="font-weight-bold">{{total_price|intcomma}} ₫ </span>
+                    </div>
+                    <!--                        <div class="cart-buttons inner-right inner-left">-->
+                    <div class=" cart-buttons buttons d-flex justify-content-between justify-content-sm-end text-center">
+                        <button type="button" id="update-cart"
+                                class="button-default font-weight-bold text-uppercase" name="update"
+                                onclick="location.href = '/'"><i class="fal fa-long-arrow-left mr-1"></i>Tiếp tục
+                            mua sắm
+                        </button>
+                        <button type="button" id="checkout" class="button-default font-weight-bold text-uppercase"
+                                onclick="location.href = '/cart/checkout'">
+                            Thanh toán
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+function updateCartItem(input) {
+    var cart_key = input.getAttribute('cart_key');
+    var newQuantity = input.value;
+//console.log(cart_key);  console.log(newQuantity) ;
+    // Gửi yêu cầu Ajax
+    $.ajax({
+        url: '/cart/update/',
+        type: 'POST',
+        data: {
+            'cart_key': cart_key,
+            'quantity': newQuantity,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function(response) {
+            console.log('Cart updated successfully.');
+             location.reload();
+        },
+        error: function(error) {
+            console.log('Error updating cart.');
+        }
+    });
+}
+
+</script>
+
+{% endblock %}

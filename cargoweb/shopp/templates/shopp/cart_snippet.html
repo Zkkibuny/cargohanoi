@@ -1,0 +1,80 @@
+<table>
+    <thead>
+    <tr>
+        <th>Product Image</th>
+        <th>Product Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Size</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in cart %}
+    <tr>
+        <td><img src="{{ item.image_url }}" alt="{{ item.name }}" width="100" height="100"></td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.size }}</td>
+        <td>
+            <input type="number" class="update-quantity" data-product-id="{{ item.product_id }}"
+                   data-size="{{ item.size }}" value="{{ item.quantity }}" min="0" max="5000">
+        </td>
+        <td>{{ item.total }}</td>
+        <td>
+            <button class="remove-item" data-product-id="{{ item.product_id }}" data-size="{{ item.size }}">Remove
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h3>Total Price: {{ total_price }}</h3>
+<div class="cart-small">
+    <div class="cart-small__content">
+        <h4 class="font-weight-bold text-uppercase cart-title position-relative text-center beforPre">
+            giỏ hàng</h4>
+        <ul class="m-0 p-0">
+            {% for item in cart %}
+            <li class="d-flex">
+                <div class="img-item">
+                    <a href="/product/{{ item.slug }}"
+                       class="d-block">
+                        <img src="{{ item.slug }}"
+                             alt="{{ item.name }} - {{ item.size }}">
+                    </a>
+                </div>
+                <div class="infor-item">
+                    <a href="/product/{{ item.slug }}"
+                       class="d-inline-block">{{ item.name }} - {{ item.size }}</a>
+                    <p class="m-0">
+                        <span>1</span> x
+                        <span class="font-weight-bold price-item">413.000 ₫ </span>
+                    </p>
+                </div>
+                <a href="javascript:"
+                   class="remove-cart rounded-circle d-inline-block text-center"
+                   data-id="37960777">
+                    <i class="far fa-times"></i>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <p class="cart-small__total text-center font-weight-bold">
+            <span>Tổng số phụ : </span>
+            <span class="font-weight-bold"> {{}}₫</span>
+        </p>
+        <div class="cart-small__button">
+            <a href="/cart" class="d-block font-weight-bold text-uppercase text-center">xem
+                giỏ hàng</a>
+            <a href="/cart/checkout"
+               class="d-block font-weight-bold text-uppercase text-center">thanh toán</a>
+        </div>
+    </div>
+    <i class="fal fa-times position-absolute"></i>
+</div>

@@ -1,0 +1,509 @@
+
+<!-- T0239-->
+<!DOCTYPE html><html lang="vi-VN" data-nhanh.vn-template="T0239">
+<head>
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' /><![endif]-->
+
+    <meta name="robots" content="noindex" />    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <meta charset="utf-8">
+    <title>Thanh toán</title><meta name="DC.language" content="scheme&#x3D;utf-8&#x20;content&#x3D;vi">
+<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+<meta name="google-site-verification" content=""><link href="https&#x3A;&#x2F;&#x2F;pos.nvncdn.com&#x2F;eb9ddb-116318&#x2F;store&#x2F;20220301_yuwQBfxunQqfEwmcJ024zvuy.png" rel="icon" type="image&#x2F;vnd.microsoft.icon"><link rel="stylesheet" href="https://web.nvnstatic.net/css/bootstrap/bootstrap-3.3.5.min.css?v=2" type="text/css"><link rel="stylesheet" href="https://web.nvnstatic.net/css/font-awesome.min.css?v=2" type="text/css"><link rel="stylesheet" href="https://web.nvnstatic.net/js/jquery/fancybox-2.1.5/source/jquery.fancybox.css?v=2" type="text/css"><link rel="stylesheet" href="https://web.nvnstatic.net/tp/T0239/css/font.css?v=4" type="text/css"><link rel="stylesheet" href="https://web.nvnstatic.net/tp/T0239/css/checkout.css?v=4" type="text/css"><script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/jquery.min.js?v=2"></script><script defer type="text/javascript" src="https://web.nvnstatic.net/js/lib.js?v=2"></script><script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/jquery.cookie.js?v=2"></script><script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/jquery-ui.min.js?v=2"></script><script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/jquery.number.min.js?v=2"></script><script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/fancybox-2.1.5/source/jquery.fancybox.js?v=2"></script><style type="text/css"></style><style type="text/css">img {max-width: 100%;} img.lazyload{ opacity: 0.001; object-fit: scale-down !important; } .fb-customerchat>span>iframe.fb_customer_chat_bounce_out_v2 {max-height: 0 !important;}  .fb-customerchat>span>iframe.fb_customer_chat_bounce_in_v2{max-height: calc(100% - 80px) !important;}</style><script src="https://pos.nvnstatic.net/cache/location.vn.js?v=240611_143858" defer></script><script src="https://web.nvnstatic.net/js/lazyLoad/lazysizes.min.js" async></script><style>figure.image{clear: both;display: table;margin: .9em auto;min-width: 50px;text-align: center;width: auto !important;}figure.image img {display: block;margin: 0 auto;max-width: 100%;min-width: 100%;}figure.image>figcaption {background-color: #f7f7f7;caption-side: bottom;color: #333;display: block;font-size: .75em;outline-offset: -1px;padding: .6em;word-break: break-word;}figure.image img, img.image_resized {height: auto !important;aspect-ratio: auto !important;}</style><script src="https://web.nvnstatic.net/js/translate/vi-vn.js" defer></script>
+</head>
+<body class="ins_home">
+
+<div id="wrapper" class="clearfix">
+<div class="ins-page">
+        <script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/jquery.validationEngine.js?v=2"></script><script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/jquery.validationEngine-vi.js?v=2"></script><link rel="stylesheet" href="https://web.nvnstatic.net/css/validationEngine.jquery.css?v=2" type="text/css"><script defer type="text/javascript" src="https://web.nvnstatic.net/tp/T0239/js/order.js?v=7"></script>
+<style>
+
+    #paymentMethod input[type="radio"]{
+        -webkit-appearance: radio;
+    }
+    #paymentMethod .b{
+        padding: 5px 0;
+    }
+    .listBank{
+        display: none;
+    }
+    .listBank>span{
+        padding: 0 1px;
+    }
+    .listBank>span:hover, .listBank>span.active {
+        background: #999;
+        /*border: 1px solid #999;*/
+        transition: all 200ms ease;
+        display: inline-block;
+        cursor: pointer;
+    }
+    .main, .sidebar{
+        padding-top: 0;
+    }
+    @media screen and (max-width: 1000px){
+        form#formCheckOut{
+            display: flex;
+            flex-direction: column;
+        }
+        .main{
+            order: 1;
+        }
+        .sidebar{
+            order: 2;
+        }
+    }
+</style>
+
+<div class="content">
+    <div class="wrap" style="max-width: none;">
+        <div class="container text-center">
+            <a href="/">
+                <img src="https://pos.nvncdn.com/eb9ddb-116318/store/20220301_M6gPcIeoQ8cwvJrojaQ7a688.png" alt="Logo" style="max-height: 120px; margin: 20px 0;">
+            </a>
+        </div>
+
+        <div class="row" style="margin: 0;">
+            <form action="" method="post" id="formCheckOut">
+                <div class="sidebar">
+                    <div class="sidebar-content">
+                        <div class="order-summary order-summary-is-collapsed" style="height: auto;">
+                            <div class="order-summary-sections">
+                                <div class="order-summary-section order-summary-section-product-list">
+                                    <table class="product-table">
+                                        <tbody>
+                                                                                    <tr class="product">
+                                                <td class="product-image">
+                                                    <div class="product-thumbnail">
+                                                        <div class="product-thumbnail-wrapper">
+                                                            <img class="product-thumbnail-image" alt="Tất HAPPY SOCKS Stripe - M" src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_pr1wpPsi7ce3p7AyidvVn4uA.jpg" />
+                                                        </div>
+                                                        <span class="product-thumbnail-quantity" aria-hidden="true">1</span>
+                                                    </div>
+                                                </td>
+                                                <td class="product-description">
+                                                    <span class="product-description-name order-summary-emphasis">Tất HAPPY SOCKS Stripe - M</span>
+                                                </td>
+                                                <td class="product-quantity visually-hidden">1</td>
+                                                <td class="product-price">
+                                                    <span class="order-summary-emphasis">
+                                                        315,000₫
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                                                                </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="order-summary-section order-summary-section-discount">
+                                    <div class="fieldset">
+                                        <p id="txtCode"></p>
+                                        <div class="field  ">
+                                            <div class="field-input-btn-wrapper">
+                                                <div class="field-input-wrapper">
+                                                    <label class="field-label" for="discount.code">Mã giảm giá</label>
+                                                    <input id="coupon" type="text" class="field-input" name="couponCode" placeholder="Mã giảm giá"/>
+                                                </div>
+                                                <button type="button" id="getCoupon" class="field-input-btn btn btn-default">
+                                                    <span class="btn-content">Sử dụng</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="order-summary-section order-summary-section-total-lines">
+                                    <table class="total-line-table">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col"><span class="visually-hidden">Mô tả</span></th>
+                                            <th scope="col"><span class="visually-hidden">Giá</span></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="total-line total-line-subtotal">
+                                            <td class="total-line-name">Tạm tính</td>
+                                            <td class="total-line-price">
+                                                <span class="order-summary-emphasis">
+                                                    315,000₫
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="total-line total-line-shipping">
+                                            <td class="total-line-name">Phí vận chuyển</td>
+                                            <td class="total-line-price">
+                                                <span class="order-summary-emphasis" id="ship_fee">
+                                                    0₫
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+
+                                        <tfoot class="total-line-table-footer">
+                                        <input type="hidden" id="total_money" value="315000">
+                                        <input type="hidden" id="getMn" value="315000"/>
+                                        <input type="hidden" id="getShipFee" value=""/>
+                                        <tr class="total-line">
+                                            <td class="total-line-name payment-due-label">
+                                                <span class="payment-due-label-total">Tổng cộng</span>
+                                            </td>
+                                            <td class="total-line-name payment-due">
+                                                <span class="payment-due-price" id="showTotalMoney" value="315000">315,000₫</span>
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                                <div class="step-footer">
+                                    <button type="submit" id="acceptCheckout" class="step-footer-continue-btn btn" style="width: 100%; font-size: 17px;">
+                                        <span class="btn-content">Thanh toán</span>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main">
+                    <div class="main-content">
+
+                        <div class="step">
+                            <div class="step-sections" step="1">
+                                <div class="section">
+                                    <div class="section-header">
+                                        <h2 class="section-title">Thông tin giao hàng</h2>
+                                    </div>
+                                    <div class="section-content section-customer-information no-mb">
+
+
+                                                <p class="section-content-text">
+                                                    Bạn đã có tài khoản? <a href="/user/signin">Đăng nhập</a>
+                                                </p>
+
+                                        <div class="fieldset">
+                                            <div class="field   ">
+                                                <div class="field-input-wrapper">
+                                                    <label class="field-label" for="billing_address_full_name">Họ và tên</label>
+                                                    <input placeholder="Họ và tên" class="field-input validate[required]" size="30" type="text" name="customerName" value=""  />
+                                                </div>
+
+                                            </div>
+
+<!--                                            <div class="field  field-two-thirds  ">-->
+<!--                                                <div class="field-input-wrapper">-->
+<!--                                                    <label class="field-label" for="checkout_user_email">Email</label>-->
+<!--                                                    <input placeholder="Email" class="field-input" type="email" name="customerEmail" value="--><!--"  />-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+
+                                            <div class="field field-required">
+                                                <div class="field-input-wrapper">
+                                                    <label class="field-label" for="billing_address_phone">Số điện thoại</label>
+                                                    <input placeholder="Số điện thoại" class="field-input validate[required]" maxlength="11" type="tel" name="customerMobile" value=""  />
+                                                </div>
+                                            </div>
+
+                                            <div class="field   ">
+                                                <div class="field-input-wrapper">
+                                                    <label class="field-label" for="billing_address_address1">Địa chỉ</label>
+                                                    <input placeholder="Địa chỉ" class="field-input validate[required]" size="30" type="text"  name="customerAddress" value=""  />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="section-content">
+                                        <div class="fieldset">
+                                            <div class="field field-half  ">
+                                                <div class="field-input-wrapper field-input-wrapper-select">
+                                                    <label class="field-label" for="customer_shipping_province">Tỉnh / thành</label>
+                                                    <select class="field-input validate[required] input" id="cityId" name="customerCityId">
+                                                        <option data-code="null" value="null" selected>Chọn tỉnh / thành</option>
+                                                                                                                    <option                                                                     value='256'>An Giang</option>
+                                                                                                                    <option                                                                     value='257'>Bà Rịa - Vũng Tàu</option>
+                                                                                                                    <option                                                                     value='260'>Bình Dương</option>
+                                                                                                                    <option                                                                     value='262'>Bình Phước</option>
+                                                                                                                    <option                                                                     value='263'>Bình Thuận</option>
+                                                                                                                    <option                                                                     value='261'>Bình Định</option>
+                                                                                                                    <option                                                                     value='315'>Bạc Liêu</option>
+                                                                                                                    <option                                                                     value='265'>Bắc Cạn</option>
+                                                                                                                    <option                                                                     value='259'>Bắc Giang</option>
+                                                                                                                    <option                                                                     value='258'>Bắc Ninh</option>
+                                                                                                                    <option                                                                     value='264'>Bến Tre</option>
+                                                                                                                    <option                                                                     value='274'>Cao Bằng</option>
+                                                                                                                    <option                                                                     value='273'>Cà Mau</option>
+                                                                                                                    <option                                                                     value='266'>Cần Thơ</option>
+                                                                                                                    <option                                                                     value='275'>Gia Lai</option>
+                                                                                                                    <option                                                                     value='276'>Hà Giang</option>
+                                                                                                                    <option                                                                     value='277'>Hà Nam</option>
+                                                                                                                    <option                                                                     value='254'>Hà Nội</option>
+                                                                                                                    <option                                                                     value='278'>Hà Tĩnh</option>
+                                                                                                                    <option                                                                     value='281'>Hòa Bình</option>
+                                                                                                                    <option                                                                     value='282'>Hưng Yên</option>
+                                                                                                                    <option                                                                     value='279'>Hải Dương</option>
+                                                                                                                    <option                                                                     value='280'>Hải Phòng</option>
+                                                                                                                    <option                                                                     value='314'>Hậu Giang</option>
+                                                                                                                    <option                                                                     value='255'>Hồ Chí Minh</option>
+                                                                                                                    <option                                                                     value='267'>Khánh Hòa</option>
+                                                                                                                    <option                                                                     value='283'>Kiên Giang</option>
+                                                                                                                    <option                                                                     value='284'>Kon Tum</option>
+                                                                                                                    <option                                                                     value='285'>Lai Châu</option>
+                                                                                                                    <option                                                                     value='288'>Long An</option>
+                                                                                                                    <option                                                                     value='269'>Lào Cai</option>
+                                                                                                                    <option                                                                     value='286'>Lâm Đồng</option>
+                                                                                                                    <option                                                                     value='287'>Lạng Sơn</option>
+                                                                                                                    <option                                                                     value='272'>Nam Định</option>
+                                                                                                                    <option                                                                     value='289'>Nghệ An</option>
+                                                                                                                    <option                                                                     value='290'>Ninh Bình</option>
+                                                                                                                    <option                                                                     value='291'>Ninh Thuận</option>
+                                                                                                                    <option                                                                     value='292'>Phú Thọ</option>
+                                                                                                                    <option                                                                     value='293'>Phú Yên</option>
+                                                                                                                    <option                                                                     value='294'>Quảng Bình</option>
+                                                                                                                    <option                                                                     value='295'>Quảng Nam</option>
+                                                                                                                    <option                                                                     value='296'>Quảng Ngãi</option>
+                                                                                                                    <option                                                                     value='270'>Quảng Ninh</option>
+                                                                                                                    <option                                                                     value='297'>Quảng Trị</option>
+                                                                                                                    <option                                                                     value='298'>Sóc Trăng</option>
+                                                                                                                    <option                                                                     value='299'>Sơn La</option>
+                                                                                                                    <option                                                                     value='303'>Thanh Hóa</option>
+                                                                                                                    <option                                                                     value='301'>Thái Bình</option>
+                                                                                                                    <option                                                                     value='302'>Thái Nguyên</option>
+                                                                                                                    <option                                                                     value='268'>Thừa Thiên Huế</option>
+                                                                                                                    <option                                                                     value='304'>Tiền Giang</option>
+                                                                                                                    <option                                                                     value='305'>Trà Vinh</option>
+                                                                                                                    <option                                                                     value='306'>Tuyên Quang</option>
+                                                                                                                    <option                                                                     value='300'>Tây Ninh</option>
+                                                                                                                    <option                                                                     value='307'>Vĩnh Long</option>
+                                                                                                                    <option                                                                     value='308'>Vĩnh Phúc</option>
+                                                                                                                    <option                                                                     value='309'>Yên Bái</option>
+                                                                                                                    <option                                                                     value='316'>Điện Biên</option>
+                                                                                                                    <option                                                                     value='312'>Đà Nẵng</option>
+                                                                                                                    <option                                                                     value='310'>Đắk Lắk</option>
+                                                                                                                    <option                                                                     value='313'>Đắc Nông</option>
+                                                                                                                    <option                                                                     value='271'>Đồng Nai</option>
+                                                                                                                    <option                                                                     value='311'>Đồng Tháp</option>
+                                                                                                            </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="field field-half  ">
+                                                <div class="field-input-wrapper field-input-wrapper-select">
+                                                    <label class="field-label" for="customer_shipping_district">Quận / huyện</label>
+                                                    <select class="field-input validate[required] input" id="districtId" name="customerDistrictId">
+                                                        <option data-code="null" value="" selected>Chọn quận / huyện</option>
+                                                                                                            </select>
+                                                </div>
+                                            </div>
+                                            <div class="field field-half  ">
+                                                <div class="field-input-wrapper field-input-wrapper-select">
+                                                    <label class="field-label" for="customer_shipping_district">Phường / xã</label>
+                                                    <select class="field-input validate[required] input" id="wardId" name="customerWardId">
+                                                        <option data-code="null" value="" selected>Chọn phường / xã</option>
+                                                                                                            </select>
+                                                    <input type="hidden" name="selectIdWard">
+                                                </div>
+                                            </div>
+
+                                            <div class="field   ">
+                                                <div class="field-input-wrapper">
+                                                    <label class="field-label" for="billing_address_address1">Ghi chú</label>
+                                                    <textarea name="description" class="input" placeholder="Ghi chú ..." rows="4" style="width: 100%;padding: 5px;box-shadow: 0 0 0 1px #d9d9d9;border-radius: 4px;transition: all .2s ease-out;"></textarea>
+                                                </div>
+                                            </div>
+
+
+                                            <input type="hidden" id="baokimPmMethodId" name="baokimBankPaymentMethodId"/>
+                                            <input type="hidden" id="storeId" name="storeId" value="116318"/>
+                                            <textarea id="productShipfee" class="hidden">{"37960632":"1"}</textarea>
+                                            <input type="hidden" name="shipFee" value="0"/>
+                                            <input type="hidden" id="totalCartMoney" value="315000"/>
+                                            <input type="hidden" id="mailManager" name="mailManager" value=""/>
+                                            <input type="hidden" id="bankId" name="bankId" value="">
+                                            <input type="hidden" id="bankAccountNumber" name="bankAccountNumber" value="">
+                                            <input type="hidden" id="generatedPaymentCode" name="generatedPaymentCode" value="">
+                                            <input type="hidden" id="bankAccountHolder" name="bankAccountHolder" value="">
+                                            <input type="hidden" id="bankAccountName" name="bankAccountName" value="">
+
+
+                                        </div>
+                                    </div>
+                                    <div id="change_pick_location_or_shipping">
+                                        <div class="section-header">
+                                            <h2 class="section-title"></h2>
+                                        </div>
+                                        <div id="paymentMethod">
+                                                                                        <div class="b">
+                                                <label>
+                                                    <input type="radio" id="rdPaymentMethodCod" name="paymentMethod" class="validate[required] cod"
+                                                           value="1" style="-webkit-appearance: radio;"/>
+                                                    Thanh toán tại nhà                                                </label>
+                                            </div>
+
+
+
+
+
+
+                                                                                    </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="step-footer">
+                                <a class="step-footer-previous-link" href="/cart">
+                                    <i class="fa fa-chevron-left"></i> Giỏ hàng
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div style="display: none">
+    <div id="progressbar" style="text-align: center;width: 100px;height: 80px;margin: 0 auto;">
+        <img src="https://web.nvnstatic.net/tp/T0239/img/loading.gif?v=3"/>
+    </div>
+</div>
+
+<style>
+    .listBankWrp{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    .listBankWrp .form-group{
+        border: 1px solid #dedede;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .listBankWrp.deactive_bank{
+        pointer-events:none !important;
+    }
+    .listBankWrp .form-group.active{
+        border: 1px solid #009cf6;
+        background: #f5f5f5;
+    }
+    .form-group.active .resultQr{
+        display: block !important;
+    }
+    @media screen and (max-width: 900px){
+        .listBankWrp .col-12{
+            padding: 0 15px !important;
+        }
+    }
+
+    @media screen and (max-width: 768px){
+        .text-banks-title {
+            display: inline-block;
+            max-width: 45%;
+        }
+        .listBankWrp .form-group{
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+    .deactive_bank .loaderWrp{
+        display: block;
+    }
+    .loaderWrp{
+        display: none;
+    }
+    .loaderWrp .loader {
+        margin-top: 7%;
+        width: 48px;
+        height: 48px;
+        border: 3px solid #FFF;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+    .loaderWrp .loader::after {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 3px solid;
+        border-color: #FF3D00 transparent;
+    }
+    .loaderWrp{
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        bottom: 0;
+        background: #cbcbcbba;
+        top: 0;
+        z-index: 999;
+    }
+    .float-left {
+        float: left;
+    }
+    .float-left label strong {
+        display: block;
+    }
+    .pr-1 {
+        padding-right: 5px;
+    }
+    .float-left input {
+        margin-top: 2px;
+    }
+    .col-4 {
+        float: left;
+        width: 33.33%;
+    }
+    .col-8 {
+        float: left;
+        width: 66.67%;
+    }
+    .col-4, .col-8 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    pb-2, .py-2 {
+        padding-bottom: 0.5rem !important;
+    }
+    .pt-2, .py-2 {
+        padding-top: 0.5rem !important;
+    }
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes rotate {
+        0%   {transform: rotate(0deg)}
+        100%   {transform: rotate(360deg)}
+    }
+
+    @keyframes prixClipFix {
+        0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+        50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+        75%, 100%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    }
+</style>
+    </div>
+</div>
+<!-- Page Content -->
+
+<input type="hidden" class="fanpageId" value=""><input type="hidden" id="bussinessId" value="116318"><input type="hidden" value="vZcg8sXxbxHEu0fZEM4j1GCRgYdLXR80uGvoSnK1Om49inkzTMnCPPk3CfyxEwVmW4w9NSjd2MCyJ1LOJujCLbMFd3fU5ZRuAVik5PQKnApAht00yjJJSmxEUnmQpGiNZTAxdbIkzzMAhoohYCQgaH9nWI4O928Bd4MEPq8rh69xr" id="uctk" name="uctk" /><input type="hidden" id="clienIp" value="1.55.7.53"></body>
+</html>

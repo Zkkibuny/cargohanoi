@@ -1,0 +1,20 @@
+{% extends 'shopp/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+<title>Cargoshop - Đặt hàng thành công!</title>
+{% endblock %}
+
+{% block content %}
+<div id="orderV" class="container text-center py-3" style="font-size: 16px;">
+        <div class="col-12 col-lg-8 mx-auto">
+            <div id="orderVTT">
+                <h1 style="margin-bottom: 20px;">Đặt hàng thành công</h1>
+            </div>
+            <div id="orderVct">
+                <h3>Chúc mừng quý khách đã đặt hàng thành công !</h3>
+                <span style="font-size: 14px;"><a href="/">Tiếp tục mua sắm</a></span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
