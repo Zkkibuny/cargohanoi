@@ -8,7 +8,7 @@
 {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="canonical" href=""/>
-<link rel="stylesheet" href="https://web.nvnstatic.net/css/fancybox-4.0.31/fancybox_4.0.31.css?v=2" type="text/css">
+<link rel="stylesheet" href="{% static 'css/fancybox-4.0.31/fancybox_4.0.31.css' %}" type="text/css">
 <script type="text/javascript">
     var csrftoken = "{{ csrf_token }}";
     var addToCartUrl = "{% url 'add_to_cart' %}";
@@ -16,7 +16,7 @@
 </script>
 
 <script defer type="text/javascript"
-        src="https://web.nvnstatic.net/js/jquery/fancybox-4.0.31/fancybox_4.0.31.js?v=2"></script>
+        src="{% static 'js/jquery/fancybox-4.0.31/fancybox_4.0.31.js' %}"></script>
 <script defer type="text/javascript" src="{% static 'js/pview.js' %}"></script>
 <!--<style>-->
 <!--    .add-to-cart-btn {-->
@@ -192,7 +192,7 @@
                     <a href="{% url 'product_detail' related_product.slug %}"
                        class="d-block image-ab position-absolute">
                         <img class="lazyload productHover productHover37960158" data-sizes="auto"
-                             src="https://web.nvnstatic.net/img/lazyLoading.gif?v=3"
+                             src="{% static 'images/lazyLoading.gif' %}"
                              data-src="{{related_product.images.first.image.url}}"
                              alt="{{ related_product.name }}">
                     </a>
@@ -262,13 +262,9 @@
                 // Update the hidden input field
                 selectedSizeInput.value = selectedSizeValue;
 
-                console.log("Selected size value: " + selectedSizeValue); // For debugging purposes
+                //console.log("Selected size value: " + selectedSizeValue); // For debugging purposes
             });
         });
-    });
-
-$(document).ready(function() {
-
     });
 </script>
 {% endblock %}

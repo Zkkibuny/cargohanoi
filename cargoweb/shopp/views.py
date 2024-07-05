@@ -19,14 +19,14 @@ def product_list(request):
 def product_list_by_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = category.products.all()
-    return render(request, 'shopp/product_list_by_category.html', {'category_name': 'SHOP '+category.name, 'products': products})
+    return render(request, 'shopp/product_list.html', {'category_name': 'SHOP '+category.name, 'products': products})
 def search_products(request):
     query = request.GET.get('q')  # Lấy từ khóa tìm kiếm từ query parameters
     if query:
         products = Product.objects.filter(name__icontains=query)  # Tìm kiếm sản phẩm theo tên
     else:
         products = Product.objects.all()  # Nếu không có từ khóa tìm kiếm, trả về tất cả sản phẩm
-    return render(request, 'shopp/product_list_by_category.html', {'category_name':'Sản phẩm theo tìm kiếm','products': products})
+    return render(request, 'shopp/product_list.html', {'category_name':'Sản phẩm theo tìm kiếm','products': products})
 
 def product_sale(request, value):
     try:
@@ -42,7 +42,7 @@ def product_sale(request, value):
                 return render(request, 'shopp/404.html')
 
             category_name = f"Giảm giá {int((1 - discount_ratio) * 100)}%"
-            return render(request, 'shopp/product_list_by_category.html', {
+            return render(request, 'shopp/product_list.html', {
                 'products': products,
                 'category_name': category_name
             })
@@ -57,7 +57,7 @@ def product_sale(request, value):
                 return render(request, 'shopp/404.html')
 
             category_name = f"Sản phẩm dưới {int(price):,}đ"
-            return render(request, 'shopp/product_list_by_category.html', {
+            return render(request, 'shopp/product_list.html', {
                 'products': products,
                 'category_name': category_name
             })
@@ -70,6 +70,7 @@ def product_sale(request, value):
 #         if '.' in value:
 #             # Xử lý tỷ lệ giảm giá (giá trị kiểu 0.5)
 #             discount_ratio = float(value) # 0.3
+#             discount_ratio = float(value) # 0.3
 #             if not (0 < discount_ratio < 1):
 #                 raise Http404("Tỷ lệ giảm giá không hợp lệ")
 #
@@ -79,7 +80,7 @@ def product_sale(request, value):
 #                 return render(request, 'shopp/404.html')
 #
 #             category_name = f"Giảm giá {int((1 - discount_ratio) * 100)}%"
-#             return render(request, 'shopp/product_list_by_category.html', {
+#             return render(request, 'shopp/product_list.html', {
 #                 'products': products,
 #                 'category_name': category_name
 #             })
@@ -94,7 +95,7 @@ def product_sale(request, value):
 #                 return render(request, 'shopp/404.html')
 #
 #             category_name = f"Sản phẩm dưới {int(price):,}đ"
-#             return render(request, 'shopp/product_list_by_category.html', {
+#             return render(request, 'shopp/product_list.html', {
 #                 'products': products,
 #                 'category_name': category_name
 #             })

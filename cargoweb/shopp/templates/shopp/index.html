@@ -74,7 +74,7 @@
         <div class="product-item__image position-relative">
             <a href="{% url 'product_detail' product.slug %}" class="d-block image-ab position-absolute">
                 <img class="lazyload productHover productHover{{ product.id }}" data-sizes="auto"
-                     src="https://web.nvnstatic.net/img/lazyLoading.gif?v=3"
+                     src="{% static 'images/lazyLoading.gif' %}"
                      data-src="{{ product.images.first.image.url }}"
 
                      data-hover-src="{{ product.images.second.image.url }}"

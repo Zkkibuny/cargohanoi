@@ -78,26 +78,26 @@ WSGI_APPLICATION = 'cargoweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'CargoWeb',
-        'USER': 'sa',
-        'PASSWORD': 'Zkkibuny1',
-        'HOST': 'DESKTOP-FVKVKA0\\BUNY',
-        'PORT': '',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
-    },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mssql',
+#         'NAME': 'CargoWeb',
+#         'USER': 'sa',
+#         'PASSWORD': 'Zkkibuny1',
+#         'HOST': 'DESKTOP-FVKVKA0\\BUNY',
+#         'PORT': '',
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 17 for SQL Server',
+#         },
+#     },
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

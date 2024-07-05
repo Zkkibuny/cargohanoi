@@ -1,12 +1,13 @@
 {% extends 'shopp/base.html' %}
+{% load static %}
 {% load humanize %}
 {% block title %}
 <title>Giỏ hàng </title>
 {% endblock %}
 
 {% block content %}
-<script defer type="text/javascript" src="https://web.nvnstatic.net/tp/T0239/js/cart.js?v=2"></script>
-<link rel="stylesheet" href="https://web.nvnstatic.net/tp/T0239/css/cart.css?v=2" type="text/css">
+<script defer type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/cart.css' %}" type="text/css">
 <link rel="canonical" href="/cart"/>
 
 <div id="cart">
@@ -49,14 +50,14 @@
                             </td>
                             <td class="qty">
                                 <input type="number" data-product-id="{{ item.product_id }}" data-size="{{ item.size }}" cart_key="{{ item.cart_key }}"
-                                       value="{{ item.quantity }}" min="0" max="5000" class="item-quantity"
+                                       value="{{ item.quantity }}" min="1" max="5000" class="item-quantity"
                                        onchange="updateCartItem(this)"/>
                             </td>
                             <td class="price">{{ item.price|intcomma }} ₫</td>
 
                             <td class="remove">
                                 <a href="javascript:" rel="nofollow" class="cart remove_cart"
-                                   data-id="{{item.cart_key }}"  onclick="removeCartItem(this)" ></a>
+                                   cart_key="{{item.cart_key }}"  onclick="removeCartItem(this)" ></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -119,30 +120,5 @@
 
     </div>
 </div>
-<script>
-function updateCartItem(input) {
-    var cart_key = input.getAttribute('cart_key');
-    var newQuantity = input.value;
-//console.log(cart_key);  console.log(newQuantity) ;
-    // Gửi yêu cầu Ajax
-    $.ajax({
-        url: '/cart/update/',
-        type: 'POST',
-        data: {
-            'cart_key': cart_key,
-            'quantity': newQuantity,
-            'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        success: function(response) {
-            console.log('Cart updated successfully.');
-             location.reload();
-        },
-        error: function(error) {
-            console.log('Error updating cart.');
-        }
-    });
-}
-
-</script>
 
 {% endblock %}

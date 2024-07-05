@@ -1,7 +1,7 @@
 {% load static %}
 {% load humanize %}
 <!DOCTYPE html>
-<html lang="vi-VN" data-nhanh.vn-template="T0239">
+<html lang="vi-VN">
 <head>
     <!--[if IE]>
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'/><![endif]-->
@@ -13,41 +13,40 @@
     <meta name="DC.language" content="scheme&#x3D;utf-8&#x20;content&#x3D;vi">
     <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
     <meta name="google-site-verification" content="">
-    <link href="https&#x3A;&#x2F;&#x2F;pos.nvncdn.com&#x2F;eb9ddb-116318&#x2F;store&#x2F;20220301_yuwQBfxunQqfEwmcJ024zvuy.png"
-          rel="icon" type="image&#x2F;vnd.microsoft.icon">
-    <link rel="stylesheet" href="https://web.nvnstatic.net/css/bootstrap/bootstrap-3.3.5.min.css?v=2" type="text/css">
-    <link rel="stylesheet" href="https://web.nvnstatic.net/css/font-awesome.min.css?v=2" type="text/css">
-    <link rel="stylesheet" href="https://web.nvnstatic.net/js/jquery/fancybox-2.1.5/source/jquery.fancybox.css?v=2"
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap-3.3.5.min.css' %}" type="text/css">
+    <!--    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">-->
+    <link rel="stylesheet" href="{% static 'js/jquery/fancybox-2.1.5/source/jquery.fancybox.css' %}"
           type="text/css">
-    <link rel="stylesheet" href="https://web.nvnstatic.net/tp/T0239/css/font.css?v=4" type="text/css">
-    <link rel="stylesheet" href="https://web.nvnstatic.net/tp/T0239/css/checkout.css?v=4" type="text/css">
-    <script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/jquery.min.js?v=2"></script>
-    <script defer type="text/javascript" src="https://web.nvnstatic.net/js/lib.js?v=2"></script>
-    <script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/jquery.cookie.js?v=2"></script>
-    <script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/jquery-ui.min.js?v=2"></script>
-    <script defer type="text/javascript" src="https://web.nvnstatic.net/js/jquery/jquery.number.min.js?v=2"></script>
+    <link rel="stylesheet" href="{% static 'css/font.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}" type="text/css">
+    <script defer type="text/javascript" src="{% static 'js/jquery/jquery.min.js' %}"></script>
+    <script defer type="text/javascript" src="{% static 'js/lib.js' %}"></script>
+    <script defer type="text/javascript" src="{% static 'js/jquery/jquery.cookie.js' %}"></script>
+    <script defer type="text/javascript" src="{% static 'js/jquery/jquery-ui.min.js' %}"></script>
+    <script defer type="text/javascript" src="{% static 'js/jquery/jquery.number.min.js' %}"></script>
     <script defer type="text/javascript"
-            src="https://web.nvnstatic.net/js/jquery/fancybox-2.1.5/source/jquery.fancybox.js?v=2"></script>
+            src="{% static 'js/jquery/fancybox-2.1.5/source/jquery.fancybox.js' %}"></script>
     <style type="text/css"></style>
     <style type="text/css">
         img {max-width: 100%;} img.lazyload{ opacity: 0.001; object-fit: scale-down !important; } .fb-customerchat>span>iframe.fb_customer_chat_bounce_out_v2 {max-height: 0 !important;}  .fb-customerchat>span>iframe.fb_customer_chat_bounce_in_v2{max-height: calc(100% - 80px) !important;}
     </style>
-    <script src="https://pos.nvnstatic.net/cache/location.vn.js?v=240611_143858" defer></script>
-    <script src="https://web.nvnstatic.net/js/lazyLoad/lazysizes.min.js" async></script>
+    <script src="{% static 'cache/location.vn.js' %}" defer></script>
+    <script src="{% static 'js/lazyLoad/lazysizes.min.js' %}" async></script>
     <style>
         figure.image{clear: both;display: table;margin: .9em auto;min-width: 50px;text-align: center;width: auto !important;}figure.image img {display: block;margin: 0 auto;max-width: 100%;min-width: 100%;}figure.image>figcaption {background-color: #f7f7f7;caption-side: bottom;color: #333;display: block;font-size: .75em;outline-offset: -1px;padding: .6em;word-break: break-word;}figure.image img, img.image_resized {height: auto !important;aspect-ratio: auto !important;}
     </style>
-    <script src="https://web.nvnstatic.net/js/translate/vi-vn.js" defer></script>
+    <script src="{% static 'js/translate/vi-vn.js' %}" defer></script>
 </head>
 <body class="ins_home">
 
 <div id="wrapper" class="clearfix">
     <div class="ins-page">
         <script defer type="text/javascript"
-                src="https://web.nvnstatic.net/js/jquery/jquery.validationEngine.js?v=2"></script>
+                src="{% static 'js/jquery/jquery.validationEngine.js' %}"></script>
         <script defer type="text/javascript"
-                src="https://web.nvnstatic.net/js/jquery/jquery.validationEngine-vi.js?v=2"></script>
-        <link rel="stylesheet" href="https://web.nvnstatic.net/css/validationEngine.jquery.css?v=2" type="text/css">
+                src="{% static 'js/jquery/jquery.validationEngine-vi.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/validationEngine.jquery.css' %}" type="text/css">
         <script defer type="text/javascript" src="{% static '/js/order.js' %}"></script>
         <style>
 
@@ -87,12 +86,12 @@
             }
         </style>
 
-        <div class="content">
+        <div class="content ">
             <div class="wrap" style="max-width: none;">
-                <div class="container text-center">
+                <div class="container text-center ">
                     <a href="/">
-                        <img src="{% static '/images/logo.jpg' %}" alt="Logo"
-                             style="max-height: 120px; margin: 20px 0;">
+                        <img src="{% static '/images/logo.png' %}" alt="Logo"
+                             style="max-height: 120px; margin: 15px 0;">
                     </a>
                 </div>
                 "
@@ -444,7 +443,7 @@
 
         <div style="display: none">
             <div id="progressbar" style="text-align: center;width: 100px;height: 80px;margin: 0 auto;">
-                <img src="https://web.nvnstatic.net/tp/T0239/img/loading.gif?v=3"/>
+                <img src="{% static 'images/loading.gif' %}"/>
             </div>
         </div>
 
@@ -581,8 +580,5 @@
 </div>
 <!-- Page Content -->
 
-<input type="hidden" class="fanpageId" value=""><input type="hidden" id="bussinessId" value="116318"><input
-        type="hidden"
-        value="BFSlDh4N1wsahomd26wsSeGFmzwYdoOBULzQkgjyxBS0SuEU21yZF3QW8jHXjUy9ehwLbeB3Fn3roMfTuIoQzIlLxcB0K5cnmSIbXkq3qxM0mm9H5pQclUwa3NVY2xopP0XZFleTtobAMj5HzrPAaZ96qhncXn3tdCCVhsdEDPS"
-        id="uctk" name="uctk"/><input type="hidden" id="clienIp" value="1.55.7.53"></body>
+</body>
 </html>
