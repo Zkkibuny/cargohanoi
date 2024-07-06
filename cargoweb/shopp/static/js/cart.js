@@ -12,12 +12,12 @@ $(document).ready(function () {
             qty = parseInt($(this).val());
         if(qty>0){
             if(qty>max){
-                alert('báº¡n chá»‰ cĂ³ thá»ƒ mua tá»‘i Ä‘a '+max+'sáº£n pháº©m');
+                alert('Bạn chỉ có thể mua mua tá»‘i Ä‘a '+max+'sản phẩm');
                 qty=max;
             }
-            jsPostQty(psId,qty);
+//            jsPostQty(psId,qty);
         }else {
-            alert('Bạn chỉ có th mua tối thiểu 1 sản phẩm');
+            alert('Bạn chỉ có thể mua tối thiểu 1 sản phẩm');
             location.reload();
         }
     });
@@ -28,7 +28,7 @@ $(document).ready(function () {
         if(val > 1){
             $(this).parent().find('.item-quantity').val(val - 1);
             var quantity = parseInt(val - 1);
-            jsPostQty(psId,quantity);
+//            jsPostQty(psId,quantity);
         }
         else {
             alert('Bạn chỉ có th mua tối thiểu 1 sản phẩm')
@@ -41,22 +41,22 @@ $(document).ready(function () {
         if(val < max){
             $(this).parent().find('.item-quantity').val(val + 1);
             var quantity = parseInt(val+1);
-            jsPostQty(psId,quantity);
+//            jsPostQty(psId,quantity);
         }
         else {
-            alert('Bà£n chì‰ cò thĂª̀‰ mua tĂ´̀i Ä‘a '+max+' sà‰n phĂ¢̀‰m')
+            alert('Bà£n chì‰ cò thĂª̀‰ mua tĂ´̀i Ä‘a '+max+' sản phẩm')
         }
     });
 });
-function jsPostQty(psId,quantity) {
-    var products = [{
-        'id':psId,
-        'quantity':quantity
-    }];
-    addToCart(products, 2, function (rs) {
-        location.reload();
-    });
-}
+//function jsPostQty(psId,quantity) {
+//    var products = [{
+//        'id':psId,
+//        'quantity':quantity
+//    }];
+//    addToCart(products, 2, function (rs) {
+//        location.reload();
+//    });
+//}
 function updateCartItem(input) {
     var cart_key = input.getAttribute('cart_key');
     var newQuantity = input.value;
@@ -68,7 +68,7 @@ function updateCartItem(input) {
         data: {
             'cart_key': cart_key,
             'quantity': newQuantity,
-            'csrfmiddlewaretoken': '{{ csrf_token }}'
+            'csrfmiddlewaretoken': csrftoken
         },
         success: function(response) {
             console.log('Cart updated successfully.');

@@ -3,13 +3,18 @@
 <!DOCTYPE html>
 <html lang="vi-VN">
 <head>
+    {% if not cart %}
+    <script>
+        window.location.href = "/";
+    </script>
+{% endif %}
     <!--[if IE]>
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'/><![endif]-->
 
     <meta name="robots" content="noindex"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
     <meta charset="utf-8">
-    <title>Đặt hàng</title>
+    <title>CARGOHANOI - Đặt hàng</title>
     <meta name="DC.language" content="scheme&#x3D;utf-8&#x20;content&#x3D;vi">
     <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
     <meta name="google-site-verification" content="">
@@ -39,7 +44,9 @@
     <script src="{% static 'js/translate/vi-vn.js' %}" defer></script>
 </head>
 <body class="ins_home">
-
+<script type="text/javascript">
+    var csrftoken = "{{ csrf_token }}";
+</script>
 <div id="wrapper" class="clearfix">
     <div class="ins-page">
         <script defer type="text/javascript"

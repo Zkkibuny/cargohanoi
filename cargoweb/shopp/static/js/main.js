@@ -377,7 +377,7 @@ $(document).ready(function () {
             var t = $(this);
             ps.push({storeId: $storeId, id: t.attr('data-id')});
         });
-        InventoryLoad(ps);
+//        InventoryLoad(ps);
     }
 
 
@@ -397,16 +397,16 @@ function WishListLoad(ps) {
         }
     }
 }
-function InventoryLoad(ps) {
-    if (ps.length) {
-        checkInventory(ps, function (rs) {
-            if (rs.inventories != "") {
-                $.each(rs.inventories, function (key, vl) {
-                    if (vl <= 0) {
-                        $('.product-item[data-id = "' + key + '"] .product-item__image').append('<span class="sold-out">Háº¿t hĂ ng</span>')
-                    }
-                });
-            }
-        });
-    }
-};
+//function InventoryLoad(ps) {
+//    if (ps.length) {
+//        checkInventory(ps, function (rs) {
+//            if (rs.inventories != "") {
+//                $.each(rs.inventories, function (key, vl) {
+//                    if (vl <= 0) {
+//                        $('.product-item[data-id = "' + key + '"] .product-item__image').append('<span class="sold-out">Háº¿t hĂ ng</span>')
+//                    }
+//                });
+//            }
+//        });
+//    }
+//};

@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 
 from .forms import OrderForm
-from .models import Product, Order, OrderDetail, Category, Size
+from .models import Product, Order, OrderDetail, Category, Size, Color, ProductSizeColor
 
 
 def product_list(request):
@@ -64,73 +64,52 @@ def product_sale(request, value):
 
     except ValueError:
         raise Http404("Giá trị không hợp lệ")
-#
-# def product_sale(request, value):
-#     try:
-#         if '.' in value:
-#             # Xử lý tỷ lệ giảm giá (giá trị kiểu 0.5)
-#             discount_ratio = float(value) # 0.3
-#             discount_ratio = float(value) # 0.3
-#             if not (0 < discount_ratio < 1):
-#                 raise Http404("Tỷ lệ giảm giá không hợp lệ")
-#
-#             # Tìm sản phẩm có tỷ lệ giảm giá tương ứng
-#             products = Product.objects.filter(sale_price__gt=discount_ratio * F('price'))
-#             if not products:
-#                 return render(request, 'shopp/404.html')
-#
-#             category_name = f"Giảm giá {int((1 - discount_ratio) * 100)}%"
-#             return render(request, 'shopp/product_list.html', {
-#                 'products': products,
-#                 'category_name': category_name
-#             })
-#
-#         else:
-#             # Xử lý giá gốc (giá trị kiểu 1000000)
-#             price = float(value)
-#             products = Product.objects.filter(
-#                 Q(sale_price__lte=price, sale_price__gt=0) | Q(sale_price__isnull=True, price__lte=price)
-#             )
-#             if not products:
-#                 return render(request, 'shopp/404.html')
-#
-#             category_name = f"Sản phẩm dưới {int(price):,}đ"
-#             return render(request, 'shopp/product_list.html', {
-#                 'products': products,
-#                 'category_name': category_name
-#             })
-#
-#     except ValueError:
-#         raise Http404("Giá trị không hợp lệ")
+
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    sizes = product.size.all()
+    colors = product.colors.all().order_by('ordering').distinct()
+    sizes = product.sizes.all().order_by('ordering').distinct()
     categories = product.categories.all()
     related_products = Product.objects.filter(categories__in=categories).exclude(id=product.id).distinct()
 
     context = {
         'product': product,
+        'colors':colors,
         'sizes': sizes,
-        'categories': categories,
+        # 'categories': categories,
         'related_products': related_products,
     }
 
     return render(request, 'shopp/product_detail.html', context)
+
+def check_inventory(request):
+    if request.method == 'GET':
+        product_id = request.GET.get('product_id')
+        color_id = request.GET.get('color_id')
+
+        sizes = ProductSizeColor.objects.filter(product_id=product_id, color_id=color_id)
+        size_stock = {size.size.id: size.stock for size in sizes}
+
+        return JsonResponse({'size_stock': size_stock})
+
 @require_POST
 def add_to_cart(request):
     product_id = request.POST.get('product_id')
+    color = request.POST.get('color')
     size = request.POST.get('size')
     quantity = int(request.POST.get('quantity'))
 
+
     if product_id and size:
         cart = request.session.get('cart', {})
-        cart_key = f"{product_id}_{size}"
+        cart_key = f"{product_id}_{size}_{color}"
 
         if cart_key in cart:
             cart[cart_key]['quantity'] += quantity
         else:
             cart[cart_key] = {
                 'product_id': product_id,
+                'color':color,
                 'size': size,
                 'quantity': quantity,
             }
@@ -168,41 +147,6 @@ def remove_from_cart(request):
     else:
         return JsonResponse({'success': False, 'error': 'Product not in cart'})
 
-def checkout(request):
-    if request.method == 'POST':
-        order_form = OrderForm(request.POST)
-        if order_form.is_valid():
-            # Save Order
-            order = order_form.save()
-
-            # Retrieve cart from session
-            cart = request.session.get('cart', {})
-            for cart_key, item in cart.items():
-                # Fetch product details
-                product = Product.objects.get(pk=item['product_id'])
-                price = product.price  # Assume price is fetched from the Product model
-
-                OrderDetail.objects.create(
-                    order=order,
-                    product_id=product,
-                    quantity=item['quantity'],
-                    price=price
-                )
-
-            # Clear the cart after saving the order
-            request.session['cart'] = {}
-
-            return redirect('order_success')  # Redirect to a success page or order details page
-    else:
-        # Initialize an empty OrderForm if the request method is GET
-        order_form = OrderForm(initial={
-            'total_price': request.session.get('total_price', 0)
-        })
-
-    return render(request, 'shopp/checkout.html', {'form': order_form})
-
-
-
 @require_POST
 def save_order(request):
     customer_name = request.POST.get('customer_name')
@@ -227,7 +171,7 @@ def save_order(request):
         for cart_key, cart_item in cart.items():
             product_id = cart_item.get('product_id')
             quantity = cart_item.get('quantity')
-            size = cart_item.get('size')  # If you need to store the size in OrderDetail, you should add a size field
+
 
             # Tìm product instance
             product = Product.objects.get(id=product_id)
@@ -235,11 +179,17 @@ def save_order(request):
             item_total = price * quantity
             total_price += item_total
 
+            size_id = cart_item.get('size')
+            size = Size.objects.get(id=size_id)  # Truy xuất đối tượng Size
+            color_id = cart_item.get('color')
+            color = Color.objects.get(id=color_id)  # Truy xuất đối tượng Color
+
             # Tạo OrderDetail instance
             order_detail = OrderDetail(
                 order=order,
                 product=product,
                 size=size,
+                color=color,
                 quantity=quantity,
                 price=price
             )

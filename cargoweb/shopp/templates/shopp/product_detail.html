@@ -2,7 +2,7 @@
 {% load static %}
 {% load humanize %}
 {% block title %}
-<title>{{ product.name }}</title>
+<title>CARGOHANOI - {{ product.name }}</title>
 {% endblock %}
 
 {% block content %}
@@ -96,17 +96,27 @@
                     </div>
                 </div>
                 <div class="product-selection mb-4">
+                     <div class="color req" column="i1">
+                        <label class="m-0 font-weight-bold">Màu sắc</label>
+                        <div class="list-color d-flex flex-wrap align-items-center">
+                            {% for color in colors %}
+                            <a rel="nofollow" value="{{color.id}}" href="javascript:void(0)"
+                               class="text-center d-inline-block ">{{color.value}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
                     <div class="size req" column="i2">
                         <label class="m-0 font-weight-bold">Size</label>
                         <div class="list-size d-flex flex-wrap align-items-center">
                             {% for size in sizes %}
-                            <a rel="nofollow" value="{{size.value}}" href="javascript:void(0)"
+                            <a rel="nofollow" value="{{size.id}}" href="javascript:void(0)"
                                class="text-center d-inline-block ">{{size.value}}</a>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
                 <input type="hidden" id="selectedSize" name="selectedSize" value="">
+                <input type="hidden" id="selectedColor" name="selectedColor" value="">
                 <input type="hidden" id="productId" name="productId" value="{{product.id}}">
                 <!--<div class="status-product py-3">
                     <span class="font-weight-bold">Còn hàng</span>
@@ -241,28 +251,31 @@
     </div>
 </div>
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        // Xử lý chọn size
         const sizeLinks = document.querySelectorAll(".list-size a");
         const selectedSizeInput = document.getElementById("selectedSize");
-        let selectedSizeValue = "";
 
         sizeLinks.forEach(link => {
             link.addEventListener("click", function() {
-                // Remove 'selected' class from all size links
                 sizeLinks.forEach(l => l.classList.remove("selected"));
-
-                // Add 'selected' class to the clicked link
                 this.classList.add("selected");
+                selectedSizeInput.value = this.getAttribute("value");
+                console.log("Selected size value: " + selectedSizeInput.value); // For debugging purposes
+            });
+        });
 
-                // Update the selected size value
-                selectedSizeValue = this.getAttribute("value");
+        // Xử lý chọn màu sắc
+        const colorLinks = document.querySelectorAll(".list-color a");
+        const selectedColorInput = document.getElementById("selectedColor");
 
-                // Update the hidden input field
-                selectedSizeInput.value = selectedSizeValue;
-
-                //console.log("Selected size value: " + selectedSizeValue); // For debugging purposes
+        colorLinks.forEach(link => {
+            link.addEventListener("click", function() {
+                colorLinks.forEach(l => l.classList.remove("selected"));
+                this.classList.add("selected");
+                selectedColorInput.value = this.getAttribute("value");
+                console.log("Selected color value: " + selectedColorInput.value); // For debugging purposes
             });
         });
     });

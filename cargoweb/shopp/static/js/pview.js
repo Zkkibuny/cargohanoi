@@ -91,7 +91,7 @@ $(document).ready(function () {
             $('#quantity').val(qtt - 1);
             $('#quantity-fixed').val(qtt - 1);
         } else {
-            alert('Báº¡n chá»‰ cĂ³ thá»ƒ mua Ă­t nhĂ¢t ' + min + ' sáº£n pháº©m')
+            alert('Bạn chỉ có thể mua ít nhất ' + min + ' sản phẩm')
             $('#quantity').val(min);
             $('#quantity-fixed').val(min);
         }
@@ -103,7 +103,7 @@ $(document).ready(function () {
             $('#quantity').val(qtt + 1);
             $('#quantity-fixed').val(qtt + 1);
         } else if (qtt > 1 && qtt > max) {
-            alert('Báº¡n chá»‰ cĂ³ thá»ƒ mua nhiá»u nhĂ¢t ' + max + ' sáº£n pháº©m');
+            alert('Bạn chỉ có thể mua ít nhất ' + max + ' sản phẩm');
             $('#quantity').val(max);
             $('#quantity-fixed').val(max);
         }
@@ -119,12 +119,15 @@ $(document).ready(function () {
         event.preventDefault();
         var productId = $('#productId').val();
         var size = $('#selectedSize').val();
+        var color = $('#selectedColor').val();
         var quantity = $('#quantity').val();
-//        console.log(productId);
-//        console.log(size);
-//        console.log(quantity);
-        if (!size || !quantity) {
+
+        if (!size ) {
             alert('Vui lòng chọn size!');
+            return;
+        }
+        if ( !color) {
+            alert('Vui lòng chọn màu!');
             return;
         }
 
@@ -134,6 +137,7 @@ $(document).ready(function () {
             data: {
                 'product_id': productId,
                 'size': size,
+                'color': color,
                 'quantity': quantity,
                 'csrfmiddlewaretoken': csrftoken
             },
@@ -192,10 +196,9 @@ $(document).ready(function () {
        event.preventDefault();
         var productId = $('#productId').val();
         var size = $('#selectedSize').val();
+        var color = $('#selectedColor').val();
         var quantity = $('#quantity').val();
-//        console.log(productId);
-//        console.log(size);
-//        console.log(quantity);
+
         if (!size || !quantity) {
             alert('Vui lòng chọn size!');
             return;
@@ -204,9 +207,11 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: addToCartUrl,
+            url: addToCartUrl,
             data: {
                 'product_id': productId,
                 'size': size,
+                'color':color,
                 'quantity': quantity,
                 'csrfmiddlewaretoken': csrftoken
             },

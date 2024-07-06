@@ -1,4 +1,4 @@
-from .models import Product  # Import your model if needed
+from .models import Product, Size, Color  # Import your model if needed
 
 def cart_data(request):
     # Lấy dữ liệu từ view hoặc session, ví dụ:
@@ -16,6 +16,8 @@ def cart_data(request):
             # Ví dụ:
             image_url = product.images.first().image.url if product.images.exists() else ''
             price = product.sale_price if product.sale_price else product.price
+            color = Color.objects.get(id=item.get('color'))
+            size = Size.objects.get(id=item.get('size'))
             total_price += price * item['quantity']
             detailed_cart.append({
                 'cart_key': cart_key,
@@ -25,7 +27,8 @@ def cart_data(request):
                 'name': product.name,
                 'price': price,
                 'total_price_item': price*item['quantity'],
-                'size': item['size'],
+                'color': color.value,
+                'size': size.value,
                 'quantity': item['quantity'],
             })
 

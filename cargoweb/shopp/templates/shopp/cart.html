@@ -2,13 +2,17 @@
 {% load static %}
 {% load humanize %}
 {% block title %}
-<title>Giỏ hàng </title>
+<title>CARGOHANOI - Giỏ hàng </title>
 {% endblock %}
 
 {% block content %}
+
 <script defer type="text/javascript" src="{% static 'js/cart.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/cart.css' %}" type="text/css">
 <link rel="canonical" href="/cart"/>
+<script type="text/javascript">
+    var csrftoken = "{{ csrf_token }}";
+</script>
 
 <div id="cart">
     <!--   --->
@@ -18,6 +22,8 @@
                 <div class="main-title mt-2 mb-5">
                     <h1 class="text-center">Giỏ hàng</h1>
                 </div>
+                {% if cart %}
+                <!-- cart không phải là chuỗi rỗng -->
                 <div id="cartformpage" class="pb30">
                     <table class="cart cart-hidden">
                         <thead>
@@ -45,11 +51,12 @@
                             </td>
                             <td class="item">
                                 <a href="/product/{{ item.slug }}"/>
-                                <strong>{{ item.name }} - {{ item.size }}</strong>
+                                <strong>{{ item.name }} - {{ item.color }} - {{ item.size }}</strong>
                                 </a>
                             </td>
                             <td class="qty">
-                                <input type="number" data-product-id="{{ item.product_id }}" data-size="{{ item.size }}" cart_key="{{ item.cart_key }}"
+                                <input type="number" data-product-id="{{ item.product_id }}" data-size="{{ item.size }}"
+                                       cart_key="{{ item.cart_key }}"
                                        value="{{ item.quantity }}" min="1" max="5000" class="item-quantity"
                                        onchange="updateCartItem(this)"/>
                             </td>
@@ -57,7 +64,7 @@
 
                             <td class="remove">
                                 <a href="javascript:" rel="nofollow" class="cart remove_cart"
-                                   cart_key="{{item.cart_key }}"  onclick="removeCartItem(this)" ></a>
+                                   cart_key="{{item.cart_key }}" onclick="removeCartItem(this)"></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -115,6 +122,13 @@
                         </button>
                     </div>
                 </div>
+                {% else %}
+                <!-- cart là chuỗi rỗng -->
+                 <p class="text-center">Không có sản phẩm nào trong giỏ hàng!</p>
+                <p class="text-center">
+                    <a href="/"><i class="fa fa-reply"></i> Tiếp tục mua hàng</a>
+                </p>
+                {% endif %}
             </div>
         </div>
 

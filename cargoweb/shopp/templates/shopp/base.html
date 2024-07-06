@@ -28,6 +28,8 @@
 
     <link rel="stylesheet" href="{%static 'css/style.css'%}" type="text/css">
 
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
     <script defer type="text/javascript" src="{% static 'js/jquery/jquery.min.js' %}"></script>
     <script defer type="text/javascript" src="{% static 'js/lib.js' %}"></script>
     <script defer type="text/javascript" src="{% static 'js/jquery/jquery.cookie.js' %}"></script>
@@ -46,7 +48,7 @@
     </style>
     <script src="{% static 'cache/location.vn.js' %}" defer></script>
 
-    <script src="{% static 'js/lazyLoad/lazysizes.min.js '%}" async></script>
+    <script src="{% static 'js/lazyLoad/lazysizes.min.js'%}" async></script>
     <style>
         figure.image{clear: both;display: table;margin: .9em auto;min-width: 50px;text-align: center;width: auto !important;}
         figure.image img {display: block;margin: 0 auto;max-width: 100%;min-width: 100%;}
@@ -83,7 +85,8 @@
                             <i class="fas fa-search"></i>
                         </a>
                         <div class="position-absolute d-none">
-                            <form action="{% url 'search_products' %}" method="get" class="d-flex form-group position-relative m-0"
+                            <form action="{% url 'search_products' %}" method="get"
+                                  class="d-flex form-group position-relative m-0"
                                   role="search">
                                 <input type="text" name="q" placeholder="Tìm kiếm sản phẩm"
                                        class="button_gradient form-control py-0">
@@ -100,11 +103,11 @@
                                 <span>Số 10 Ngách 61 Ngõ 521 Trương Định Hai Bà Trưng, Hà Nội</span>
                             </a>
                         </li>
-                       <!-- <li class="position-relative">
-                            <a href="" class="d-inline-block font-weight-bold">
-                                <i class="fas fa-phone-alt"></i>
-                            </a>
-                        </li>-->
+                        <!-- <li class="position-relative">
+                             <a href="" class="d-inline-block font-weight-bold">
+                                 <i class="fas fa-phone-alt"></i>
+                             </a>
+                         </li>-->
                     </ul>
                 </div>
                 <div class="logo text-center" style=" width: 600px; margin: 0 30px;">
@@ -128,6 +131,8 @@
                             <span class="count-cart position-absolute rounded-circle text-center font-weight-bold">{{ total_quantity }}</span>
                             <div class="cart-small">
                                 <div class="cart-small__content">
+                                    {% if cart %}
+                                    <!-- cart không phải là chuỗi rỗng -->
                                     <h4 class="font-weight-bold text-uppercase cart-title position-relative text-center beforPre">
                                         giỏ hàng</h4>
                                     {% for item in cart %}
@@ -138,12 +143,12 @@
                                                 <a href="/product/{{ item.slug }}"
                                                    class="d-block">
                                                     <img src="{{ item.image_url }}"
-                                                         alt="{{ item.name }} - {{ item.size }}">
+                                                         alt="{{ item.name }} - {{ item.color }} - {{ item.size }} - 555">
                                                 </a>
                                             </div>
                                             <div class="infor-item">
                                                 <a href="/product/{{ item.slug }}"
-                                                   class="d-inline-block">{{ item.name }} - {{ item.size }}</a>
+                                                   class="d-inline-block">{{ item.name }} - {{ item.color }} - {{item.size }}</a>
                                                 <p class="m-0">
                                                     <span>{{ item.quantity }}</span> x
                                                     <span class="font-weight-bold price-item">
@@ -163,7 +168,7 @@
                                     </ul>
                                     {% endfor %}
                                     <p class="cart-small__total text-center font-weight-bold">
-                                        <span>Tổng số phụ : </span>
+                                        <span>Tổng tiền : </span>
                                         <span class="font-weight-bold"> {{ total_price|intcomma  }}₫</span>
                                     </p>
                                     <div class="cart-small__button">
@@ -172,6 +177,10 @@
                                         <a href="/cart/checkout"
                                            class="d-block font-weight-bold text-uppercase text-center">đặt hàng</a>
                                     </div>
+                                    {% else %}
+                                    <!-- cart là chuỗi rỗng -->
+                                    <p class="m-0">Chưa có sản phẩm nào trong giỏ hàng !</p>
+                                    {% endif %}
                                 </div>
                                 <i class="fal fa-times position-absolute"></i>
                             </div>
@@ -235,11 +244,12 @@
                                 <i class="fas fa-caret-down"></i>
                                 <ul class="wrap">
                                     <li class="lv2">
-                                        <a class="tp_menu_item" href="/category/sales/0.5"  title="50%">50%
+                                        <a class="tp_menu_item" href="/category/sales/0.5" title="50%">50%
                                         </a>
                                     </li>
                                     <li class="lv2">
-                                        <a class="tp_menu_item" href="/category/sales/100000"  title="Dưới 100000 đ">Dưới 100,000 ₫
+                                        <a class="tp_menu_item" href="/category/sales/100000" title="Dưới 100000 đ">Dưới
+                                            100,000 ₫
                                         </a>
                                     </li>
                                 </ul>
@@ -289,7 +299,7 @@
                 <div class="row">
                     <div class="col-md-3 footer-col d-none d-md-block logo-footer text-center font-weight-bold text-uppercase position-relative title beforPre">
                         <a href="javascript:void(0);" class="d-inline-block">
-                            <img class="lazyautosizes lazyloaded"  data-sizes="auto"
+                            <img class="lazyautosizes lazyloaded" data-sizes="auto"
                                  src="{% static 'images/logo.png' %}"
                                  alt="CargoHaNoi">
                         </a>
@@ -339,7 +349,7 @@
     <input type="hidden" class="checkCookies" value=''>
     <div class="iconSocial messIcon">
         <a target="_blank" href="https://www.facebook.com/Hanoiretro">
-<!--            <img src="https://web.nvnstatic.net/img/social/mess-color.svg?v=3" alt="mess">-->
+            <!--            <img src="https://web.nvnstatic.net/img/social/mess-color.svg?v=3" alt="mess">-->
         </a>
     </div>
     <!-- Menu mobile-->

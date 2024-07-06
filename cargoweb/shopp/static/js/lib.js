@@ -266,52 +266,52 @@ function inIframe() {
  * @param mode int (1=>add|2=>update)
  * @param callback (return data)
  */
-function addToCart(products, mode, callback) {
-    $.post(
-        '/cart/add',
-        {
-            'products': products,
-            'mode': mode
-        },
-        function (rs) {
-            callback(rs);
-        }
-    );
-}
-function addToCartWithAttr(products, mode, attr = false, callback) {
-    $.post(
-        '/cart/add',
-        {
-            'products': products,
-            'mode': mode,
-            'attr': true,
-        },
-        function (rs) {
-            callback(rs);
-        }
-    );
-}
+//function addToCart(products, mode, callback) {
+//    $.post(
+//        '/cart/add/',
+//        {
+//            'products': products,
+//            'mode': mode
+//        },
+//        function (rs) {
+//            callback(rs);
+//        }
+//    );
+//}
+//function addToCartWithAttr(products, mode, attr = false, callback) {
+//    $.post(
+//        '/cart/add/',
+//        {
+//            'products': products,
+//            'mode': mode,
+//            'attr': true,
+//        },
+//        function (rs) {
+//            callback(rs);
+//        }
+//    );
+//}
 
-function addToBook(products, mode, callback) {
-    $.post(
-        '/cart/addbook',
-        {
-            'products': products,
-            'mode': mode
-        },
-        function (rs) {
-            callback(rs);
-        }
-    )
-}
+//function addToBook(products, mode, callback) {
+//    $.post(
+//        '/cart/addbook/',
+//        {
+//            'products': products,
+//            'mode': mode
+//        },
+//        function (rs) {
+//            callback(rs);
+//        }
+//    )
+//}
 
-function addToBaseCart(options) {
-    $.post('/carts/add', {'products': options.products, 'mode': options.mode},
-        function (rs) {
-            options.onSuccess(rs);
-        }, 'json'
-    );
-}
+//function addToBaseCart(options) {
+//    $.post('/carts/add/', {'products': options.products, 'mode': options.mode},
+//        function (rs) {
+//            options.onSuccess(rs);
+//        }, 'json'
+//    );
+//}
 
 function flyfly(options) {
     var position = options.position, itemDrag = options.iDrag, effect = options.effect;
@@ -373,189 +373,189 @@ function removeCart(id, redirect, callback) {
     }
 }
 
-function removeBook(id, redirect, callback) {
-    if (!id) {/* remove all*/
-        $.post('/cart/removebook',
-            function (rs) {
-                if (redirect) {
-                    window.location.reload();
-                }
-                callback(rs);
-            }, 'json'
-        );
-    } else {
-        $.post('/cart/removebook', {'psId': id},
-            function (rs) {
-                if (redirect) {
-                    window.location.reload();
-                }
-                callback(rs);
-            }, 'json'
-        );
-    }
-}
+//function removeBook(id, redirect, callback) {
+//    if (!id) {/* remove all*/
+//        $.post('/cart/removebook',
+//            function (rs) {
+//                if (redirect) {
+//                    window.location.reload();
+//                }
+//                callback(rs);
+//            }, 'json'
+//        );
+//    } else {
+//        $.post('/cart/removebook', {'psId': id},
+//            function (rs) {
+//                if (redirect) {
+//                    window.location.reload();
+//                }
+//                callback(rs);
+//            }, 'json'
+//        );
+//    }
+//}
 
 /**
  * @param options object
  */
-function removeBaseCart(options) {
-    if (!options.id) {/* remove all*/
-        $.post('/carts/remove',
-            function (rs) {
-                if (options.redirect) {
-                    document.location.href = document.URL;
-                }
-                options.onSuccess(rs);
-            }, 'json'
-        );
-    } else {
-        $.post('/carts/remove', {'psId': options.id},
-            function (rs) {
-                if (options.redirect) {
-                    document.location.href = document.URL;
-                }
-                options.onSuccess(rs);
-            }, 'json'
-        );
-    }
-}
+//function removeBaseCart(options) {
+//    if (!options.id) {/* remove all*/
+//        $.post('/carts/remove',
+//            function (rs) {
+//                if (options.redirect) {
+//                    document.location.href = document.URL;
+//                }
+//                options.onSuccess(rs);
+//            }, 'json'
+//        );
+//    } else {
+//        $.post('/carts/remove', {'psId': options.id},
+//            function (rs) {
+//                if (options.redirect) {
+//                    document.location.href = document.URL;
+//                }
+//                options.onSuccess(rs);
+//            }, 'json'
+//        );
+//    }
+//}
 
 /**
  * @param options
  */
-function calculateShipFee(options) {
-    var param = {
-        'toCity': options.toCity,
-        'toDistrict': options.toDistrict,
-        'products': options.products,
-        'totalMoney': options.totalMoney
-    };
-    var isChecked = $('input[name="paymentMethod"]:checked');
-    if (isChecked.length && isChecked.val() != 1) {
-        var param = {'toCity': options.toCity, 'toDistrict': options.toDistrict, 'totalCod': true};
-    }
-    $.post(
-        '/order/caculateshipfee',
-        param,
-        function (rs) {
-            options.onSuccess(rs);
-        },
-        'json'
-    );
-}
+//function calculateShipFee(options) {
+//    var param = {
+//        'toCity': options.toCity,
+//        'toDistrict': options.toDistrict,
+//        'products': options.products,
+//        'totalMoney': options.totalMoney
+//    };
+//    var isChecked = $('input[name="paymentMethod"]:checked');
+//    if (isChecked.length && isChecked.val() != 1) {
+//        var param = {'toCity': options.toCity, 'toDistrict': options.toDistrict, 'totalCod': true};
+//    }
+//    /*$.post(
+//        '/order/caculateshipfee',
+//        param,
+//        function (rs) {
+//            options.onSuccess(rs);
+//        },
+//        'json'
+//    );*/
+//}
 
 /**
  * @param param string
  * @param value string
  * @param mode int (1|2) //2==replace
  */
-function addFilter(param, value, mode) {
-    var path = window.location.pathname, pr = window.location.search, params = {};
-    parse_str(pr.replace('?', ''), params);
-    if (isset(params[param]) && params[param] && mode == 1) {
-        // mode 1: append new value
-        var values = explode(',', params[param]);
-        if (!in_array(value, values)) {
-            values.push(value);
-            params[param] = implode(',', values);
-        }
-    } else if (value !== undefined && value.length) {
-        params[param] = value;
-    }
-    $.each(params, function (pKey, pVal) {
-        params[pKey] = pKey + '=' + pVal;
-    });
-    if (mode == 3) {
-        return path + '?' + implode('&', params);
-    }
-    window.history.pushState(null, null, path + '?' + implode('&', params));
-}
+//function addFilter(param, value, mode) {
+//    var path = window.location.pathname, pr = window.location.search, params = {};
+//    parse_str(pr.replace('?', ''), params);
+//    if (isset(params[param]) && params[param] && mode == 1) {
+//        // mode 1: append new value
+//        var values = explode(',', params[param]);
+//        if (!in_array(value, values)) {
+//            values.push(value);
+//            params[param] = implode(',', values);
+//        }
+//    } else if (value !== undefined && value.length) {
+//        params[param] = value;
+//    }
+//    $.each(params, function (pKey, pVal) {
+//        params[pKey] = pKey + '=' + pVal;
+//    });
+//    if (mode == 3) {
+//        return path + '?' + implode('&', params);
+//    }
+//    window.history.pushState(null, null, path + '?' + implode('&', params));
+//}
 
 /**
  * @param param string
  * @param value string
  */
-function removeFilter(param, value) {
-    var path = window.location.pathname, pr = window.location.search, params = {};
-    parse_str(pr.replace('?', ''), params);
-
-    if (isset(params[param]) && params[param]) {
-        var values = explode(',', params[param]);
-        if (isset(value)) {
-            if (in_array(value, values)) {
-                params[param] = implode(',', array_diff(values, [value]));
-            }
-        } else {
-            delete params[param];
-        }
-    } else if (value.length) {
-        params[param] = value;
-    }
-
-    $.each(params, function (pKey, pVal) {
-        if (pVal) {
-            params[pKey] = pKey + '=' + pVal;
-        } else {
-            delete params[pKey];
-        }
-    });
-
-    window.history.pushState(null, null, path + '?' + implode('&', params));
-}
+//function removeFilter(param, value) {
+//    var path = window.location.pathname, pr = window.location.search, params = {};
+//    parse_str(pr.replace('?', ''), params);
+//
+//    if (isset(params[param]) && params[param]) {
+//        var values = explode(',', params[param]);
+//        if (isset(value)) {
+//            if (in_array(value, values)) {
+//                params[param] = implode(',', array_diff(values, [value]));
+//            }
+//        } else {
+//            delete params[param];
+//        }
+//    } else if (value.length) {
+//        params[param] = value;
+//    }
+//
+//    $.each(params, function (pKey, pVal) {
+//        if (pVal) {
+//            params[pKey] = pKey + '=' + pVal;
+//        } else {
+//            delete params[pKey];
+//        }
+//    });
+//
+//    window.history.pushState(null, null, path + '?' + implode('&', params));
+//}
 
 function isNullAndUndef(variable) {
     return (variable !== null && variable !== undefined);
 }
 
-function checkInventory(ps, callback) {
-    var uri = window.location.href.search("\\?");
-    var params = '';
-    if (uri >= 0) {
-        params = window.location.href.slice(uri);
-    }
-
+//function checkInventory(ps, callback) {
+//    var uri = window.location.href.search("\\?");
+//    var params = '';
+//    if (uri >= 0) {
+//        params = window.location.href.slice(uri);
+//    }
+//
 //    $.post('/product/checkinventory/' + params, {'ps': ps},
 //        function (rs) {
 //            callback(rs);
 //        }, 'json'
 //    );
-}
+//}
 
-function getallchildimg(ps, callback) {
-    $.post('/product/getallchildimg', {'ps': ps},
-        function (rs) {
-            callback(rs);
-        }, 'json'
-    );
-}
+//function getallchildimg(ps, callback) {
+//    $.post('/product/getallchildimg', {'ps': ps},
+//        function (rs) {
+//            callback(rs);
+//        }, 'json'
+//    );
+//}
 
-function buyProductNumber(options) {
-    $.post('/product/totalcustomerbuyproduct', {'productIds': options.productIds},
-        function (rs) {
-            options.onSuccess(rs);
-        }, 'json'
-    );
-}
+//function buyProductNumber(options) {
+//    $.post('/product/totalcustomerbuyproduct', {'productIds': options.productIds},
+//        function (rs) {
+//            options.onSuccess(rs);
+//        }, 'json'
+//    );
+//}
 
-var installmentMoMo = {
-    renderInstallMent: function (params) {
-        AppAjax.post("/order/getlistinstallment",
-            params,
-            function (rs) {
-                if (rs.code == 1) {
-                    $('.installMenWrp').append('<input type="hidden" class="orderIdInstallment" name="orderIdInstallment" value="' + params['orderId'] + '">');
-                    let listPackage = rs.data[0]['packages'];
-                    createRow('Sá»‘ thĂ¡ng tráº£ gĂ³p', 'packageName', listPackage);
-                    createRow('GiĂ¡ sáº£n pháº©m', 'totalMoney', listPackage, rs.totalMoney);
-                    createRow('Tráº£ trÆ°á»›c', 'dpAmount', listPackage);
-                    createRow('GĂ³p má»—i thĂ¡ng', 'emi', listPackage);
-                    createRow('GiĂ¡ tráº£ gĂ³p', 'insAmount', listPackage);
-                    createRow('ChĂªnh lá»‡ch vá»›i tráº£ tháº³ng', 'interestAmount', listPackage);
-                    createRow('Chá»n hĂ¬nh thá»©c', 'packageId', listPackage);
-                }
-            });
-    }
-};
+//var installmentMoMo = {
+//    renderInstallMent: function (params) {
+//        AppAjax.post("/order/getlistinstallment",
+//            params,
+//            function (rs) {
+//                if (rs.code == 1) {
+//                    $('.installMenWrp').append('<input type="hidden" class="orderIdInstallment" name="orderIdInstallment" value="' + params['orderId'] + '">');
+//                    let listPackage = rs.data[0]['packages'];
+//                    createRow('Sá»‘ thĂ¡ng tráº£ gĂ³p', 'packageName', listPackage);
+//                    createRow('GiĂ¡ sáº£n pháº©m', 'totalMoney', listPackage, rs.totalMoney);
+//                    createRow('Tráº£ trÆ°á»›c', 'dpAmount', listPackage);
+//                    createRow('GĂ³p má»—i thĂ¡ng', 'emi', listPackage);
+//                    createRow('GiĂ¡ tráº£ gĂ³p', 'insAmount', listPackage);
+//                    createRow('ChĂªnh lá»‡ch vá»›i tráº£ tháº³ng', 'interestAmount', listPackage);
+//                    createRow('Chá»n hĂ¬nh thá»©c', 'packageId', listPackage);
+//                }
+//            });
+//    }
+//};
 
 function createRow(title, selector, items, totalMoney) {
     const tr = $('<tr></tr>');
@@ -1042,7 +1042,7 @@ var CustomerShipFee = {
                 wardId = obj.wardLocationId;
             }
         }
-        $.post(
+       /* $.post(
             '/order/caculateshipfee',
             {
                 toCity: $(toCity).val(),
@@ -1258,7 +1258,7 @@ var CustomerShipFee = {
                 }
             },
             'json'
-        );
+        );*/
     }
 };
 /**
