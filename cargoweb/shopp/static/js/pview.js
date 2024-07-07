@@ -669,3 +669,93 @@ function renderPrice($price,$priceOld,$code,$discount){
     }
 
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    function setupSelection(listSelector, inputId, clearSizeSelection = false) {
+        const links = document.querySelectorAll(listSelector);
+        const selectedInput = document.getElementById(inputId);
+
+        links.forEach(link => {
+            link.addEventListener("click", function(event) {
+                // Nếu click vào màu, xóa lựa chọn kích thước
+                if (clearSizeSelection) {
+                    clearSelectedSize();
+                }
+
+                // Nếu phần tử là unavailable, ngăn chặn sự kiện click
+                if (this.classList.contains('unavailable')) {
+                    event.preventDefault();
+                    return;
+                }
+
+                // Xóa trạng thái selected của các liên kết khác
+                links.forEach(l => l.classList.remove("selected"));
+                this.classList.add("selected");
+
+                // Cập nhật giá trị input được chọn
+                selectedInput.value = this.getAttribute("value");
+                //console.log(`Selected value for ${inputId}: ` + selectedInput.value); // For debugging purposes
+
+                // Gọi hàm kiểm tra tồn kho sau khi chọn màu hoặc kích thước
+                checkInventory();
+            });
+        });
+    }
+
+    function clearSelectedSize() {
+        const sizeLinks = document.querySelectorAll(".list-size a");
+        sizeLinks.forEach(link => link.classList.remove("selected"));
+        document.getElementById("selectedSize").value = "";
+    }
+
+    function checkInventory() {
+        var productId = $('#productId').val();
+        var colorId = $('#selectedColor').val();
+
+        if (colorId) {
+            $.ajax({
+                url: '/check_inventory/',  // URL của view kiểm tra tồn kho
+                type: 'GET', // Hoặc 'POST' nếu yêu cầu sử dụng phương thức POST
+                data: {
+                    'product_id': productId,
+                    'color_id': colorId
+                },
+                success: function(response) {
+                    if (response.size_stock) {
+                        var sizeStock = response.size_stock;
+                        $('.list-size a').each(function() {
+                            var sizeId = $(this).attr('value');
+                            // Gán id vào các liên kết kích thước từ sizeStock
+                            if (sizeStock[sizeId] > minQuanityCheck) {
+                                $(this).removeClass('unavailable').addClass('available');
+                            } else {
+                                $(this).removeClass('available').addClass('unavailable');
+                            }
+                        });
+                       // console.log(sizeStock);
+                    } else {
+                        console.error('Invalid response format');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX request failed:', status, error);
+                }
+            });
+        }
+    }
+
+    // Thiết lập lựa chọn cho kích thước và màu sắc
+    setupSelection(".list-size a", "selectedSize");
+    setupSelection(".list-color a", "selectedColor", true); // Thêm tham số thứ ba để xóa lựa chọn kích thước khi chọn màu
+
+    // Chọn mục màu đầu tiên làm mặc định khi trang được tải
+    const firstColorLink = document.querySelector(".list-color a");
+   // console.log(firstColorLink)
+    if (firstColorLink) {
+    //console.log(1)
+        firstColorLink.classList.add("selected","active");
+
+        document.getElementById("selectedColor").value = firstColorLink.getAttribute("value");
+        checkInventory(); // Kiểm tra tồn kho ngay khi trang tải
+    }
+});

@@ -22,13 +22,13 @@ class Size(models.Model):
     value = models.CharField(max_length=20, null=True)
     ordering = models.IntegerField( default=0)
     def __str__(self):
-        return f"{self.value} - {self.ordering}"
+        return f"{self.value} - {self.id} - {self.ordering}"
 
 class Color(models.Model):
     value = models.CharField(max_length=20, null=True)
     ordering = models.IntegerField( default=0)
     def __str__(self):
-        return f"{self.value} - {self.ordering}"
+        return f"{self.value} - {self.id} - {self.ordering}"
 class Product(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=30,null=True)

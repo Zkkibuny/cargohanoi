@@ -83,14 +83,25 @@ def product_detail(request, slug):
     return render(request, 'shopp/product_detail.html', context)
 
 def check_inventory(request):
-    if request.method == 'GET':
-        product_id = request.GET.get('product_id')
-        color_id = request.GET.get('color_id')
+    product_id = request.GET.get('product_id')
+    color_id = request.GET.get('color_id')
+    if not product_id or not color_id:
+        return JsonResponse({'error': 'Missing parameters'}, status=400)
 
-        sizes = ProductSizeColor.objects.filter(product_id=product_id, color_id=color_id)
-        size_stock = {size.size.id: size.stock for size in sizes}
+    try:
+        product = get_object_or_404(Product, id=product_id)
+        color = get_object_or_404(Color, id=color_id)
+
+        # Lấy tất cả các kích thước cho sản phẩm và màu sắc đã chọn
+        size_stock = {}
+        for psc in ProductSizeColor.objects.filter(product=product, color=color):
+            size_stock[psc.size.id] = psc.quantity_available
 
         return JsonResponse({'size_stock': size_stock})
+
+    except Exception as e:
+        print(e)  # In lỗi ra console để debug
+        return JsonResponse({'error': 'Internal Server Error'}, status=500)
 
 @require_POST
 def add_to_cart(request):

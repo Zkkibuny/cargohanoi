@@ -9,10 +9,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="canonical" href=""/>
 <link rel="stylesheet" href="{% static 'css/fancybox-4.0.31/fancybox_4.0.31.css' %}" type="text/css">
+<style>
+    .list-size a.available {
+
+        pointer-events: auto; /* Cho phép nhấp chuột */
+    }
+    .list-size a.unavailable {
+        color: grey;
+        pointer-events: none; /* Vô hiệu hóa nhấp chuột */
+        text-decoration: line-through;
+    }
+</style>
 <script type="text/javascript">
     var csrftoken = "{{ csrf_token }}";
     var addToCartUrl = "{% url 'add_to_cart' %}";
     var checkoutUrl = "{% url 'checkout' %}";
+    var minQuanityCheck = 5
 </script>
 
 <script defer type="text/javascript"
@@ -251,33 +263,7 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Xử lý chọn size
-        const sizeLinks = document.querySelectorAll(".list-size a");
-        const selectedSizeInput = document.getElementById("selectedSize");
 
-        sizeLinks.forEach(link => {
-            link.addEventListener("click", function() {
-                sizeLinks.forEach(l => l.classList.remove("selected"));
-                this.classList.add("selected");
-                selectedSizeInput.value = this.getAttribute("value");
-                console.log("Selected size value: " + selectedSizeInput.value); // For debugging purposes
-            });
-        });
 
-        // Xử lý chọn màu sắc
-        const colorLinks = document.querySelectorAll(".list-color a");
-        const selectedColorInput = document.getElementById("selectedColor");
 
-        colorLinks.forEach(link => {
-            link.addEventListener("click", function() {
-                colorLinks.forEach(l => l.classList.remove("selected"));
-                this.classList.add("selected");
-                selectedColorInput.value = this.getAttribute("value");
-                console.log("Selected color value: " + selectedColorInput.value); // For debugging purposes
-            });
-        });
-    });
-</script>
 {% endblock %}
