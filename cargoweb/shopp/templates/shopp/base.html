@@ -148,7 +148,8 @@
                                             </div>
                                             <div class="infor-item">
                                                 <a href="/product/{{ item.slug }}"
-                                                   class="d-inline-block">{{ item.name }} - {{ item.color }} - {{item.size }}</a>
+                                                   class="d-inline-block">{{ item.name }} - {{ item.color }} -
+                                                    {{item.size }}</a>
                                                 <p class="m-0">
                                                     <span>{{ item.quantity }}</span> x
                                                     <span class="font-weight-bold price-item">
@@ -226,18 +227,13 @@
                                                    </a ></li ></ul></li><li class="lv2">
                                         <a class="tp_menu_item" href="/giay-adidas-pc570897.html">Giày Adidas
                                         </a></li></ul></li>-->
+                            {% for category in categories %}
                             <li class="lv1 cate_hover">
                                 <a class="tp_menu_item nav-top-link d-inline-block  font-weight-bold position-relative"
-                                   href="/category/best-seller" title="BEST SELLER">BEST SELLER</a></li>
-                            <li class="lv1 cate_hover">
-                                <a class="tp_menu_item nav-top-link d-inline-block  font-weight-bold position-relative"
-                                   href="/category/new-realease" title="NEW RELEASES">NEW RELEASES</a></li>
-                            <li class="lv1 cate_hover">
-                                <a class="d-inline-block font-weight-bold position-relative tp_menu"
-                                   href="/category/jeans" title="JEANS">JEANS</a></li>
-                            <li class="lv1 cate_hover">
-                                <a class="d-inline-block font-weight-bold position-relative tp_menu"
-                                   href="/category/kaki" title="KAKI">KAKI</a></li>
+                                   href="{% url 'category_detail' category.slug %}" title={{category.name}}">{{category.name}}</a>
+                            </li>
+                            {% endfor %}
+
                             <li class="lv1 cate_hover">
                                 <a class="tp_menu_item nav-top-link d-inline-block  font-weight-bold position-relative"
                                    href="/category/sales/99999999" title="SALES">SALES</a>
@@ -267,6 +263,7 @@
                                 <div class="searchFolding position-absolute">
                                 </div>
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -366,25 +363,14 @@
                         </button>
                     </form>
                 </li>
+                {% for category in categories %}
+                <li class="mobile-lv1 d-flex flex-wrap align-items-center">
+                    <a class="font-weight-bold d-block text-uppercase tp_menu" href="{% url 'category_detail' category.slug %}"
+                       title="{{category.name}}">
+                        {{category.name}} </a>
+                </li>
+                {% endfor %}
 
-                <li class="mobile-lv1 d-flex flex-wrap align-items-center">
-                    <a class="font-weight-bold d-block text-uppercase tp_menu" href="/category/best-seller"
-                       title="BEST SELLER">
-                        BEST SELLER </a>
-                </li>
-                <li class="mobile-lv1 d-flex flex-wrap align-items-center">
-                    <a class="font-weight-bold d-block text-uppercase tp_menu" href="/category/new-realease"
-                       title="NEW RELEASE">
-                        NEW RELEASE </a>
-                </li>
-                <li class="mobile-lv1 d-flex flex-wrap align-items-center">
-                    <a class="font-weight-bold d-block text-uppercase tp_menu" href="/category/jeans" title="JEANS">
-                        JEANS </a>
-                </li>
-                <li class="mobile-lv1 d-flex flex-wrap align-items-center">
-                    <a class="font-weight-bold d-block text-uppercase tp_menu" href="/category/kaki" title="KAKI">
-                        KAKI </a>
-                </li>
                 <li class="mobile-lv1 d-flex flex-wrap align-items-center">
                     <a class="font-weight-bold d-block text-uppercase tp_menu" href="/category/sales/9999999999999"
                        title="SALES">

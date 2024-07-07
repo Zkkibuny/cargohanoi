@@ -1,32 +1,32 @@
 # views.py
-from django.db.models import Q, F, FloatField
-from django.db.models.functions import Cast
-from django.http import JsonResponse, HttpResponse, Http404
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.decorators.http import require_POST
+import json
 
-from .forms import OrderForm
+from django.contrib.staticfiles import finders
+from django.db.models import Q, F
+from django.http import JsonResponse, Http404
+from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_POST
 from .models import Product, Order, OrderDetail, Category, Size, Color, ProductSizeColor
 
 
-def product_list(request):
+def index(request):
     categories = Category.objects.prefetch_related('products').all()
     context = {
         'categories': categories
     }
     return render(request, 'shopp/index.html', context)
 
-def product_list_by_category(request, slug):
+def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = category.products.all()
-    return render(request, 'shopp/product_list.html', {'category_name': 'SHOP '+category.name, 'products': products})
+    return render(request, 'shopp/category_detail.html', {'category_name': 'SHOP '+category.name, 'products': products})
 def search_products(request):
     query = request.GET.get('q')  # Lấy từ khóa tìm kiếm từ query parameters
     if query:
         products = Product.objects.filter(name__icontains=query)  # Tìm kiếm sản phẩm theo tên
     else:
         products = Product.objects.all()  # Nếu không có từ khóa tìm kiếm, trả về tất cả sản phẩm
-    return render(request, 'shopp/product_list.html', {'category_name':'Sản phẩm theo tìm kiếm','products': products})
+    return render(request, 'shopp/category_detail.html', {'category_name':'Sản phẩm theo tìm kiếm','products': products})
 
 def product_sale(request, value):
     try:
@@ -42,7 +42,7 @@ def product_sale(request, value):
                 return render(request, 'shopp/404.html')
 
             category_name = f"Giảm giá {int((1 - discount_ratio) * 100)}%"
-            return render(request, 'shopp/product_list.html', {
+            return render(request, 'shopp/category_detail.html', {
                 'products': products,
                 'category_name': category_name
             })
@@ -57,7 +57,7 @@ def product_sale(request, value):
                 return render(request, 'shopp/404.html')
 
             category_name = f"Sản phẩm dưới {int(price):,}đ"
-            return render(request, 'shopp/product_list.html', {
+            return render(request, 'shopp/category_detail.html', {
                 'products': products,
                 'category_name': category_name
             })
@@ -95,7 +95,7 @@ def check_inventory(request):
         # Lấy tất cả các kích thước cho sản phẩm và màu sắc đã chọn
         size_stock = {}
         for psc in ProductSizeColor.objects.filter(product=product, color=color):
-            size_stock[psc.size.id] = psc.quantity_available
+            size_stock[psc.size.id] = psc.quantity
 
         return JsonResponse({'size_stock': size_stock})
 
@@ -164,15 +164,16 @@ def save_order(request):
     customer_mobile = request.POST.get('customer_mobile')
     customer_address = request.POST.get('customer_address')
     description = request.POST.get('description')
-    total_price = request.POST.get('total_price')
-
+    post_data_dict = dict(request.POST.items())
+    print(post_data_dict)
     try:
         order = Order.objects.create(
             customer_name=customer_name,
             customer_mobile=customer_mobile,
             customer_address=customer_address,
             description=description,
-            total_price=0
+            total_price=0,
+            status=0,
         )
         # Lấy chi tiết đơn hàng từ session cart
         cart = request.session.get('cart', {})
@@ -182,7 +183,6 @@ def save_order(request):
         for cart_key, cart_item in cart.items():
             product_id = cart_item.get('product_id')
             quantity = cart_item.get('quantity')
-
 
             # Tìm product instance
             product = Product.objects.get(id=product_id)
@@ -195,6 +195,12 @@ def save_order(request):
             color_id = cart_item.get('color')
             color = Color.objects.get(id=color_id)  # Truy xuất đối tượng Color
 
+            product_size_color = ProductSizeColor.objects.get(
+                product=product,
+                size_id=size_id,
+                color_id=color_id
+            )
+
             # Tạo OrderDetail instance
             order_detail = OrderDetail(
                 order=order,
@@ -205,6 +211,10 @@ def save_order(request):
                 price=price
             )
             order_detail.save()
+            if product_size_color.quantity < quantity:
+                raise ValueError("Không đủ số lượng sản phẩm trong kho.")
+            product_size_color.quantity -= quantity
+            product_size_color.save()
 
         # Cập nhật tổng giá trị đơn hàng
         order.total_price = total_price

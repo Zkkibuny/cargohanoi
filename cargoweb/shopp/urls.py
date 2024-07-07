@@ -4,10 +4,11 @@ from django.views.generic import RedirectView, TemplateView
 from . import views
 
 urlpatterns = [
-    path('', views.product_list, name='product_list'),
-    # path('category/<int:category_id>/', views.product_list, name='product_list_by_category'),
+    path('', views.index, name='index'),
+    path('category/<slug:slug>/', views.category_detail, name='category_detail'),
+
     path('product/<slug:slug>/', views.product_detail, name='product_detail'),
-    path('category/<slug:slug>/', views.product_list_by_category, name='product_list_by_category'),
+
     path('category/sales/<str:value>', views.product_sale, name='product_sale'),
 
     path('search/', views.search_products, name='search_products'),

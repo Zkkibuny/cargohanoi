@@ -7,7 +7,7 @@
     <script>
         window.location.href = "/";
     </script>
-{% endif %}
+    {% endif %}
     <!--[if IE]>
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'/><![endif]-->
 
@@ -264,16 +264,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="field   ">
-                                                        <div class="field-input-wrapper">
-                                                            <label class="field-label" for="customer_address">Địa
-                                                                chỉ</label>
-                                                            <input placeholder="Địa chỉ"
-                                                                   class="field-input validate[required]" size="30"
-                                                                   type="text" name="customer_address"
-                                                                   value="{{ form.customer_address.value|default_if_none:'' }}"/>
-                                                        </div>
-                                                    </div>
 
                                                 </div>
                                             </div>
@@ -380,7 +370,20 @@
                                                             <input type="hidden" name="selectIdWard">
                                                         </div>
                                                     </div>
+                                                    <div class="field   ">
+                                                        <div class="field-input-wrapper">
+                                                            <label class="field-label" for="address">Địa
+                                                                chỉ</label>
+                                                            <input id="address"
+                                                                   placeholder="Địa chỉ cụ thể"
+                                                                   class="field-input validate[required]" size="30"
+                                                                   type="text"
+                                                                   value="{{ form.customer_address.value|default_if_none:'' }}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field   ">
 
+                                                    </div>
                                                     <div class="field   ">
                                                         <div class="field-input-wrapper">
                                                             <label class="field-label" for="description">Ghi
@@ -391,7 +394,7 @@
                                                         </div>
                                                     </div>
 
-
+                                                    <input type="hidden" id="result" name="customer_address"/>
                                                     <input type="hidden" id="PmMethodId" name="BankPaymentMethodId"/>
                                                     <input type="hidden" id="storeId" name="storeId" value="116318"/>
                                                     <textarea id="productShipfee"
@@ -437,11 +440,13 @@
                                         <a class="step-footer-previous-link" href="/cart">
                                             <i class="fa fa-chevron-left"></i> Giỏ hàng
                                         </a>
+
                                     </div>
                                 </div>
 
                             </div>
                         </div>
+
                     </form>
 
                 </div>
@@ -586,6 +591,31 @@
     </div>
 </div>
 <!-- Page Content -->
+<script>
+    // Hàm lấy tên từ trường select
+    function getSelectedText(selectId) {
+        var select = document.getElementById(selectId);
+        var selectedOption = select.options[select.selectedIndex];
+        return selectedOption.textContent;
+    }
 
+    // Hàm cập nhật kết quả dựa trên các trường select
+    function updateResult() {
+        var cityText = getSelectedText('cityId');
+        var districtText = getSelectedText('districtId');
+        var wardText = getSelectedText('wardId');
+        var addressText = document.getElementById('address').value.trim();
+        var result = [cityText, districtText, wardText,addressText ].filter(Boolean).join(' / ');
+
+        document.getElementById('result').value = result || 'Chưa chọn';
+
+    }
+
+    // Thêm sự kiện thay đổi cho các trường select
+    document.getElementById('cityId').addEventListener('change', updateResult);
+    document.getElementById('districtId').addEventListener('change', updateResult);
+    document.getElementById('wardId').addEventListener('change', updateResult);
+   document.getElementById('address').addEventListener('input', updateResult);
+</script>
 </body>
 </html>

@@ -1,4 +1,5 @@
-from .models import Product, Size, Color  # Import your model if needed
+
+from .models import Product, Size, Color, Category  # Import your model if needed
 
 def cart_data(request):
     # Lấy dữ liệu từ view hoặc session, ví dụ:
@@ -36,4 +37,13 @@ def cart_data(request):
         'cart': detailed_cart,
         'total_price': total_price,
         'total_quantity':total_quantity,
+    }
+
+def category_data(request):
+    # Lấy tất cả các danh mục, sắp xếp theo trường 'ordering'
+    categories = Category.objects.all().order_by('ordering').values('slug', 'name')
+    categories_list = list(categories)  # Chuyển đổi QuerySet thành danh sách
+
+    return {
+        'categories': categories_list
     }
