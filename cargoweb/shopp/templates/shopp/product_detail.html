@@ -24,7 +24,7 @@
     var csrftoken = "{{ csrf_token }}";
     var addToCartUrl = "{% url 'add_to_cart' %}";
     var checkoutUrl = "{% url 'checkout' %}";
-    var minQuanityCheck = 5
+    var minQuanityCheck = 1
 </script>
 
 <script defer type="text/javascript"
@@ -121,7 +121,7 @@
                         <label class="m-0 font-weight-bold">Size</label>
                         <div class="list-size d-flex flex-wrap align-items-center">
                             {% for size in sizes %}
-                            <a rel="nofollow" value="{{size.id}}" href="javascript:void(0)"
+                            <a rel="nofollow" id = "{{size.id}}" value = "{{size.id}}" href="javascript:void(0)"
                                class="text-center d-inline-block ">{{size.value}}</a>
                             {% endfor %}
                         </div>

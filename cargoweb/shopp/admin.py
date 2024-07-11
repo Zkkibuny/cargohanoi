@@ -1,3 +1,13 @@
+
+
+#Admin
+from django.contrib import admin
+name = ' CargoHaNoi'
+admin.site.site_title = "Hệ thống quản trị" +name # Thay đổi site title
+admin.site.site_header = "Trang quản trị"    +name# Thay đổi site header
+admin.site.index_title = "Quản lý trang web" +name# Thay đổi index title
+
+# Web
 from django.contrib import admin
 from .models import Category, Product, ProductImage, Order, OrderDetail, Size, Color, ProductSizeColor
 

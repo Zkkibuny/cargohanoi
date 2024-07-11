@@ -10,7 +10,7 @@ from .models import Product, Order, OrderDetail, Category, Size, Color, ProductS
 
 
 def index(request):
-    categories = Category.objects.prefetch_related('products').all()
+    categories = Category.objects.prefetch_related('products').all().order_by('ordering')
     context = {
         'categories': categories
     }
@@ -85,19 +85,29 @@ def product_detail(request, slug):
 def check_inventory(request):
     product_id = request.GET.get('product_id')
     color_id = request.GET.get('color_id')
+    size_id =request.GET.get('size_id')
+
     if not product_id or not color_id:
         return JsonResponse({'error': 'Missing parameters'}, status=400)
 
     try:
         product = get_object_or_404(Product, id=product_id)
         color = get_object_or_404(Color, id=color_id)
+        if size_id :
+            # Lấy số lượng chi tiết
+            size = get_object_or_404(Size, id=size_id)  # Assuming you have a Size model
+            psc = ProductSizeColor.objects.filter(product=product, color=color, size=size).first()
+            if psc:
+                return JsonResponse({'size_stock': {size.id: psc.quantity}})
+            else:
+                return JsonResponse({'size_stock': {size_id: 0}})
+        else:
+            # Lấy tất cả các kích thước cho sản phẩm và màu sắc đã chọn
+            size_stock = {}
+            for psc in ProductSizeColor.objects.filter(product=product, color=color):
+                size_stock[psc.size.id] = psc.quantity
 
-        # Lấy tất cả các kích thước cho sản phẩm và màu sắc đã chọn
-        size_stock = {}
-        for psc in ProductSizeColor.objects.filter(product=product, color=color):
-            size_stock[psc.size.id] = psc.quantity
-
-        return JsonResponse({'size_stock': size_stock})
+            return JsonResponse({'size_stock': size_stock})
 
     except Exception as e:
         print(e)  # In lỗi ra console để debug

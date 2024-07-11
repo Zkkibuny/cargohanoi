@@ -11,6 +11,8 @@ class Category(models.Model):
 
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
 
+    class Meta:
+        verbose_name = verbose_name_plural = "danh mục"
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(unidecode(self.name).replace(' ', '-'))
@@ -24,11 +26,16 @@ class Size(models.Model):
     def __str__(self):
         return f"{self.value} - {self.ordering}"
 
+    class Meta:
+        verbose_name =  verbose_name_plural = "kích cỡ"
 class Color(models.Model):
     value = models.CharField(max_length=20, null=True)
     ordering = models.IntegerField( default=0)
     def __str__(self):
         return f"{self.value} -  {self.ordering}"
+
+    class Meta:
+        verbose_name = verbose_name_plural = "Màu"
 class Product(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=30,null=True)
@@ -39,6 +46,9 @@ class Product(models.Model):
     sale_price = models.DecimalField(max_digits=10, decimal_places=0,null=True,blank=True)
 
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
+
+    class Meta:
+        verbose_name =  verbose_name_plural = "sản phẩm"
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -56,6 +66,8 @@ class ProductSizeColor(models.Model):
     color = models.ForeignKey(Color, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
 
+    class Meta:
+        verbose_name = verbose_name_plural = "số lượng theo màu săc và kích cỡ"
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if not self.product :
@@ -69,6 +81,9 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/products/')
 
+    class Meta:
+        verbose_name_plural = verbose_name = "Hình ảnh sản phẩm"
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if not self.image:
@@ -81,16 +96,17 @@ class Order(models.Model):
     STATUS_CHOICES = [
         (0, 'Đặt hàng'),
         (1, 'Xác nhận'),
-        (2, 'Hủy đơn'),
     ]
     customer_name = models.CharField(max_length=255)
     customer_mobile = models.CharField(max_length=20,null=True)
-    customer_address = models.CharField(max_length=255,null=True)
+    customer_address = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.IntegerField(choices=STATUS_CHOICES, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name_plural = verbose_name = "đơn hàng"
     def __str__(self):
         return f"Order {self.id} - {self.customer_name} - {self.total_price}- {self.status}"
 
@@ -115,6 +131,8 @@ class OrderDetail(models.Model):
     quantity = models.IntegerField(null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2,null=True)
 
+    class Meta:
+        verbose_name_plural = verbose_name = "chi tiết đơn hàng"
     def __str__(self):
         return f"OrderDetail {self.id} - Product {self.product}- Color {self.color.value}- Size {self.size.value}"
 

@@ -42,8 +42,9 @@ def cart_data(request):
 def category_data(request):
     # Lấy tất cả các danh mục, sắp xếp theo trường 'ordering'
     categories = Category.objects.all().order_by('ordering').values('slug', 'name')
+
     categories_list = list(categories)  # Chuyển đổi QuerySet thành danh sách
 
     return {
-        'categories': categories_list
+        'options': categories_list
     }

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var $storeId = $('#checkStoreId').val();
+//    var $storeId = $('#checkStoreId').val();
     $('.detail-product_big-Slide>div').slick({
         infinite: false,
         asNavFor: '.detail-product_small-Slide',
@@ -94,6 +94,7 @@ $(document).ready(function () {
             alert('Bạn chỉ có thể mua ít nhất ' + min + ' sản phẩm')
             $('#quantity').val(min);
             $('#quantity-fixed').val(min);
+
         }
     });
     $(".number-plus").click(function () {
@@ -106,6 +107,7 @@ $(document).ready(function () {
             alert('Bạn chỉ có thể mua ít nhất ' + max + ' sản phẩm');
             $('#quantity').val(max);
             $('#quantity-fixed').val(max);
+
         }
     });
 
@@ -447,12 +449,12 @@ $(document).ready(function () {
 
 function alertMax() {
     if ($("#quantity").val() * 1 > $("#quantity").attr("max") * 1) {
-        alert("Bà£n chì‰ mua Ä‘Æ°Æ¡̀£c tĂ´̀i Ä‘a " + $("#quantity").attr("max") + " sà‰n phĂ¢̀‰m!");
+        alert("Bạn chỉ có thể mua tối đa " + $("#quantity").attr("max") + " sản phẩm!");
         $("#quantity").val($("#quantity").attr("max"));
         $("#quantity-fixed").val($("#quantity").attr("max"));
     }
     if ($("#quantity-fixed").val() * 1 > $("#quantity").attr("max") * 1) {
-        alert("Bà£n chì‰ mua Ä‘Æ°Æ¡̀£c tĂ´̀i Ä‘a " + $("#quantity").attr("max") + " sà‰n phĂ¢̀‰m!");
+        alert("Bạn chỉ có thể mua tối đa " + $("#quantity").attr("max") + " sản phẩm!");
         $("#quantity").val($("#quantity").attr("max"));
         $("#quantity-fixed").val($("#quantity").attr("max"));
     }
@@ -530,6 +532,7 @@ function() {
 function checkInventory() {
         var productId = $('#productId').val();
         var colorId = $('#selectedColor').val();
+        var sizeId = $('#selectedSize').val();
 
         if (colorId) {
             $.ajax({
@@ -537,13 +540,16 @@ function checkInventory() {
                 type: 'GET', // Hoặc 'POST' nếu yêu cầu sử dụng phương thức POST
                 data: {
                     'product_id': productId,
-                    'color_id': colorId
+                    'color_id': colorId,
+                    'size_id': sizeId,
                 },
                 success: function(response) {
                     if (response.size_stock) {
                         var sizeStock = response.size_stock;
-                        $('.list-size a').each(function() {
-                            var sizeId = $(this).attr('value');
+                        if(!sizeId){
+                            $('.list-size a').each(function() {
+                            var sizeId = $(this).attr('id');
+
                             // Gán id vào các liên kết kích thước từ sizeStock
                             if (sizeStock[sizeId] > minQuanityCheck) {
                                 $(this).removeClass('unavailable').addClass('available');
@@ -551,7 +557,9 @@ function checkInventory() {
                                 $(this).removeClass('available').addClass('unavailable');
                             }
                         });
-                       // console.log(sizeStock);
+
+                            }
+                        else{  $('input[name="quantity"]').attr('max', sizeStock[sizeId]);}
                     } else {
                         console.error('Invalid response format');
                     }

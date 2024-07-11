@@ -228,10 +228,10 @@
                                                    </a ></li ></ul></li><li class="lv2">
                                         <a class="tp_menu_item" href="/giay-adidas-pc570897.html">Giày Adidas
                                         </a></li></ul></li>-->
-                            {% for category in categories %}
+                            {% for option in options %}
                             <li class="lv1 cate_hover">
                                 <a class="tp_menu_item nav-top-link d-inline-block  font-weight-bold position-relative"
-                                   href="{% url 'category_detail' category.slug %}" title={{category.name}}">{{category.name}}</a>
+                                   href="{% url 'category_detail' option.slug %}" title={{option.name}}">{{option.name}}</a>
                             </li>
                             {% endfor %}
 
@@ -364,11 +364,11 @@
                         </button>
                     </form>
                 </li>
-                {% for category in categories %}
+                {% for option in options %}
                 <li class="mobile-lv1 d-flex flex-wrap align-items-center">
-                    <a class="font-weight-bold d-block text-uppercase tp_menu" href="{% url 'category_detail' category.slug %}"
-                       title="{{category.name}}">
-                        {{category.name}} </a>
+                    <a class="font-weight-bold d-block text-uppercase tp_menu" href="{% url 'category_detail' option.slug %}"
+                       title="{{option.name}}">
+                        {{option.name}} </a>
                 </li>
                 {% endfor %}
 
@@ -419,7 +419,7 @@
 }else {
         console.log('User canceled the operation.');
         // Người dùng không đồng ý xóa, có thể xử lý hoặc không làm gì ở đây
-        console.log(cart_key)
+        //console.log(cart_key)
     }
     }
 </script>

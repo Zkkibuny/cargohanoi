@@ -18,46 +18,7 @@
     </div>
 </div>
 
-<div class="title-home__news">
-    <h2 class="text-center position-relative m-0">
-        <span class="d-inline-block text-uppercase font-weight-bold position-relative"></span>
-    </h2>
-</div>
-<div class="row bannerNews-home">
-    <div class="col-3">
-        <div class="bannerNews-home__mid-content position-relative">
-            <a href="/category/jeans" class="d-block position-absolute">
-                <img src="{% static 'images/shop_jean.jpg' %}"
-                     alt="SHOP JEANS">
-            </a>
-            <a href="/category/jeans"
-               class="text-center bannerNews-home__mid-name d-block position-absolute text-uppercase font-weight-bold d-inline-block">
-                SHOP JEANS </a>
-        </div>
-    </div>
-    <div class="col-6 bannerNews-home__mid">
-        <div class="bannerNews-home__mid-content position-relative">
-            <a href="/category/kaki" class="d-block position-absolute">
-                <img src="{% static 'images/shop_kaki.jpg' %}"
-                     alt="SHOP KAKI">
-            </a>
-            <a href="/category/kaki"
-               class="text-center bannerNews-home__mid-name d-block position-absolute text-uppercase font-weight-bold d-inline-block">
-                SHOP KAKI </a>
-        </div>
-    </div>
-    <div class="col-3">
-        <div class="bannerNews-home__mid-content position-relative">
-            <a href="/" class="d-block position-absolute">
-                <img src="https://pos.nvncdn.com/eb9ddb-116318/bn/20220324_VBDHBJlITvvfnLSDA82zbAfd.png"
-                     alt="Super Sale">
-            </a>
-            <a href="/accessories-pc570536.html"
-               class="text-center bannerNews-home__mid-name d-block position-absolute text-uppercase font-weight-bold d-inline-block">
-                Sale </a>
-        </div>
-    </div>
-</div>
+
 
 {% for category in categories %}
 <div class="title-home">
@@ -102,6 +63,7 @@
             </p>
         </div>
     </div>
+
     {% endfor %}
 
 </div>
@@ -110,5 +72,47 @@
         Xem tất cả <i class="fal fa-angle-right"></i>
     </a>
 </div>
+{% if forloop.first %}
+<div class="title-home__news">
+    <h2 class="text-center position-relative m-0">
+        <span class="d-inline-block text-uppercase font-weight-bold position-relative"></span>
+    </h2>
+</div>
+<div class="row bannerNews-home">
+    <div class="col-3">
+        <div class="bannerNews-home__mid-content position-relative">
+            <a href="/category/jeans" class="d-block position-absolute">
+                <img src="{% static 'images/shop_jean.jpg' %}"
+                     alt="SHOP JEANS">
+            </a>
+            <a href="/category/jeans"
+               class="text-center bannerNews-home__mid-name d-block position-absolute text-uppercase font-weight-bold d-inline-block">
+                SHOP JEANS </a>
+        </div>
+    </div>
+    <div class="col-6 bannerNews-home__mid">
+        <div class="bannerNews-home__mid-content position-relative">
+            <a href="/category/kaki" class="d-block position-absolute">
+                <img src="{% static 'images/shop_kaki.jpg' %}"
+                     alt="SHOP KAKI">
+            </a>
+            <a href="/category/kaki"
+               class="text-center bannerNews-home__mid-name d-block position-absolute text-uppercase font-weight-bold d-inline-block">
+                SHOP KAKI </a>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="bannerNews-home__mid-content position-relative">
+            <a href="/" class="d-block position-absolute">
+                <img src="https://pos.nvncdn.com/eb9ddb-116318/bn/20220324_VBDHBJlITvvfnLSDA82zbAfd.png"
+                     alt="Super Sale">
+            </a>
+            <a href="/accessories-pc570536.html"
+               class="text-center bannerNews-home__mid-name d-block position-absolute text-uppercase font-weight-bold d-inline-block">
+                Sale </a>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endfor %}
 {% endblock %}
